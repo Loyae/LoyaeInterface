@@ -1,7 +1,7 @@
 <script>
 	import Box from '$lib/components/Box.svelte';
 	import Table from '$lib/components/Table.svelte';
-	import Button from '$libcomponents/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 	
 
 
