@@ -3,14 +3,23 @@
 	import '../app.css';
 
 	let nav_hrefs = [["Dashboard","#"], ["Home","index.html"], ["Help","#"]];
+
+	var date = new Date();
+	var yyyy = date.getFullYear();
 </script>
 
+<header>
+	<Nav hrefs={nav_hrefs} title={"Loyae"} logo_href={"https://www.loyae.com/assets/logos/logo.svg"}/>
+</header>
 
-<Nav hrefs={nav_hrefs} title={"Loyae"} logo_href={"https://www.loyae.com/assets/logos/logo.svg"}/>
 
+<main>
+	<!--WHERE THE PAGE LOADS-->
+		<slot></slot>
+</main>
 
 <footer>
-	<p>(c) Loyae from Lins Technologies</p>
+	<p><b>Loyae</b> from <b>Lins Technologies</b> © {yyyy}</p>
 </footer>
 
 <style>
