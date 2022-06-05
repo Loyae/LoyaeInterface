@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ 
+}
+
+:root {
+  --body-bg-color:  lightgray;
+  --theme-bg-color: #fafafb;
+  --body-font: "DM Sans", sans-serif;
+  --body-color: #2f2f33;
+  --active-color: lightcoral /*#ff7f50*/;
+  --active-light-color: #e1ebfb;
+  --header-bg-color: #fff;
+  --search-border-color: #efefef;
+  --border-color: #d8d8d8;
+  --alert-bg-color: #ffd8c9;
+  --subtitle-color: #83838e;
+  --inactive-color: #f0f0f0;
+  --placeholder-color: #9b9ba5;
+  --time-button: #fc5757;
+  --level-button: #5052d5;
+  --err-color: rgb(181, 25, 25);
+
+}
+
+/*
+.dark-mode {
+ --body-bg-color: #1d1d1d;
+ --theme-bg-color: #13131a;
+ --header-bg-color: #1c1c24;
+ --alert-bg-color: #292932;
+ --body-color: #fff;
+ --inactive-color: #292932;
+ --time-button: #fff;
+ --level-button: #fff;
+ --active-light-color: #263d63;
+ --border-color: #26262f;
+ --search-border-color: #26262f;
+}
+*/
+/*
+@media only screen and (max-width: 600px) {
+    #left-side-panel {
+      display: none;
+      visibility: hidden;
+    }
+  }*/
+::-webkit-input-placeholder {
+  color: var(--placeholder-color);
+}
+:-ms-input-placeholder {
+  color: var(--placeholder-color);
+}
+::-ms-input-placeholder {
+  color: var(--placeholder-color);
+}
+::placeholder {
+  color: var(--placeholder-color);
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--body-bg-color);
+  font-family: var(--body-font);
+  font-size: 15px;
+  color: var(--body-color);
+}
