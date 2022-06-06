@@ -1,6 +1,6 @@
-/*import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-auto';
 
- @type {import('@sveltejs/kit').Config} 
+/** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
 		adapter: adapter(),
@@ -12,16 +12,4 @@ const config = {
 	}
 };
 
-export default config;*/
-
-
-
-
-import adapter from '@sveltejs/adapter-netlify';
-
-export default {
-  kit: {
-    adapter: adapter()
-  }
-};
-
+export default config;
