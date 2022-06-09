@@ -1,7 +1,6 @@
 <script>
 	import '../app.css';
-
-
+	
 </script>
 
 <head>
@@ -10,5 +9,9 @@
 	<link rel="icon" type="image/png" href="../assets/logos/logo.png"/>
 </head>
 
+<main>
+	<p>Manage</p>
+	<a href="/dashboard">dash</a>
 
+</main>
 

@@ -1,6 +1,6 @@
 <script>
 	//import Box from '$lib/components/Box.svelte';
-	import Table from '../lib/components/Table.svelte';
+	import Pages from '$lib/components/Pages.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import '../app.css';
 
@@ -11,13 +11,13 @@
 	let APIURL = "http://localhost:8080";
 
 
-
+	let focus = "example.com"
 
 
 	let headers = ["Page", "Missing ALTs", "Missing Meta Tags", "Excess Bytes"];
 	
 
-		function construct_features(page, missing_alts, meta_tags, excess_bytes){
+	function construct_features(page, missing_alts, meta_tags, excess_bytes){
 			return {
 				page: page,
 				missing_alts: missing_alts,
@@ -41,6 +41,9 @@
 
 
 
+
+	
+
 </script>
 
 
@@ -52,17 +55,46 @@
 	</head>
 
 
-
+	<h2 id="focus">{focus}</h2>
 		
 
+	 
+	  
+	  
+	 
+			<div id="table" class="center">
+			<Pages headers={headers} features={features}/>
+			</div>
+	
+			<div id="optimize-all-btn" class="center">
+			<Button bcolor={"var(--active-color)"} msg={"Optimize All"}/>
+			</div>
+	
+	  
+	  
+	  
+	  
+	 
+			<table style="width:100px">
+				CMS
+				<tr>
+				  <th>Title</th>
+				  <th>URL</th>
+				  <th>Meta Description</th>
+				</tr>
+				<tr>
+				  <td>Emil</td>
+				  <td>Tobias</td>
+				  <td>check</td>
+				</tr>
+				<tr>
+				  <td>16</td>
+				  <td>14</td>
+				  <td>X</td>
+				</tr>
+			  </table>
 
-		<div id="table" class="center">
-		<Table headers={headers} features={features}/>
-		</div>
-
-		<div id="optimize-all-btn" class="center">
-		<Button bcolor={"var(--active-color)"} msg={"Optimize All"}/>
-		</div>
+		
 
 
 		
@@ -74,15 +106,7 @@
 
 <style>
 
-	.center {
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 3px;
-		margin-bottom: 3px;
-		text-align: center;
-		display: flex;
-		justify-content: center;
-	}
+	
 
 	#table {
 		margin-top: 20%;
@@ -93,8 +117,16 @@
 	}
 
 
+	#focus {
+		margin-top: 20px;
+		margin-left: 20px;
+	}
 
-
+	table, th, td,tr {
+		border:1px solid black;
+		margin: 0;
+		padding:0;
+	}
 
 
 </style>

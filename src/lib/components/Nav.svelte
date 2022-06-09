@@ -5,7 +5,7 @@ export let title;
 //export let active_href = 0;
 </script>
 
-<div class="header">
+<nav>
 	   
     <a href="../index.html" style="text-decoration: none; color: black">
       <div class="logo">
@@ -24,9 +24,11 @@ export let title;
       </div>
       <div class="user-settings">
        
-       <div class="user-name">By John Lins</div>
+       <div>
+         <span class="user-name">John Lins</span> • <a href="/signup">Login</a>
+        </div>
       </div>
-     </div>
+</nav>
 
 
 <style>
@@ -42,7 +44,7 @@ export let title;
   font-size: 18px;
   cursor: pointer;
 }
-	.header {
+	nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -68,6 +70,7 @@ backdrop-filter: blur(5px);
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  box-shadow: 0 0 15px lightgray;
 }
 
 .header-menu a {

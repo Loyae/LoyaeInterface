@@ -2,7 +2,7 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import '../app.css';
 
-	let nav_hrefs = [["Dashboard","#"], ["Home","index.html"], ["Help","#"]];
+	let nav_hrefs = [["Manage","/manage"], ["Home","index.html"], ["Help","#"]];
 
 	var date = new Date();
 	var yyyy = date.getFullYear();

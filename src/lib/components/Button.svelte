@@ -2,25 +2,39 @@
     export let msg;
     export let bcolor;
     export let tcolor = "black";
+    export let direct;
+    export let onclick;
     
 </script>
 
-<button style="background-color: {bcolor}; color: {tcolor};">
-{msg}
-</button>
+{#if !onclick }
+    <button style="background-color: {bcolor}; color: {tcolor};" href="{direct}">
+    {msg}
+    </button>
+{:else if !direct}
+    <button style="background-color: {bcolor}; color: {tcolor};" on:click={onclick}>
+    {msg}
+    </button>
+{:else}
+    <button style="background-color: {bcolor}; color: {tcolor};" href="{direct}" on:click={onclick}>
+    {msg}
+    </button>
+{/if}
+
+    
 
 
 <style>
     button {
-        border-radius: 5px;
+        border-radius: 10px;
         border: 0;
-        box-shadow: 0 0 15 lightgray;
+        /*box-shadow: 0 0 5px lightcoral;*/
         padding: 10px;
     }
     
     button:hover {
-        box-shadow: 0 0 15 gray;
-        filter: brightness(0.85);
+       /* box-shadow: 0 0 10px lightcoral;*/
+        filter: brightness(0.95);
         cursor: pointer;
     }
 
