@@ -2,6 +2,7 @@
 	//import Box from '$lib/components/Box.svelte';
 	import Pages from '$lib/components/Pages.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Table from '$lib/components/Table.svelte';
 	import '../app.css';
 
 	//import '../scripts/dashboard.js'
@@ -60,45 +61,26 @@
 
 	 
 	  
-	  
-	 
-			<div id="table" class="center">
-			<Pages headers={headers} features={features}/>
+	  <div id="tables">
+		<div id="sitemap-table" class="center">
+			<Table title={"Sitemaps"} ths={["URL"]}/>
+		</div>
+
+
+		<div id="pages-tabs">
+			<div id="raw-pages-table" class="center">
+				<Pages headers={headers} features={features}/>
 			</div>
 	
-			<div id="optimize-all-btn" class="center">
-			<Button bcolor={"var(--active-color)"} msg={"Optimize All"}/>
-			</div>
 	
-	  
-	  
-	  
-	  
+			<div id="cms-pages-table" class="center">
+				<Table title={"CMS"} ths={["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]}/>
+			</div>
+		</div>
+
+	  </div>
 	 
-			<table style="width:100px">
-				CMS
-				<tr>
-				  <th>Title</th>
-				  <th>URL</th>
-				  <th>Meta Description</th>
-				</tr>
-				<tr>
-				  <td>Emil</td>
-				  <td>Tobias</td>
-				  <td>check</td>
-				</tr>
-				<tr>
-				  <td>16</td>
-				  <td>14</td>
-				  <td>X</td>
-				</tr>
-			  </table>
-
-		
-
-
-		
-		
+			
 	
 
 <!--<h1>Hello bro {name}!</h1>
@@ -106,26 +88,36 @@
 
 <style>
 
-	
-
-	#table {
-		margin-top: 20%;
+	#tables {
+		display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 5px;
 	}
 
-	#optimize-all-btn {
-		margin-top: 1%;
+	/*#raw-pages-table {
+
+		grid-column: 4 / 10;
+        grid-row: 3 / 4;
 	}
 
+	#cms-pages-table {
+		grid-column: 2 / 3;
+        grid-row: 8 / 9;
+	}*/
+
+	#pages-tabs {
+		grid-column: 4 / 5;
+		grid-row: 3 / 4;
+	}
+
+	#sitemap-table {
+		grid-column: 2 / 3;
+        grid-row: 3 / 4;
+	}
 
 	#focus {
 		margin-top: 20px;
 		margin-left: 20px;
-	}
-
-	table, th, td,tr {
-		border:1px solid black;
-		margin: 0;
-		padding:0;
 	}
 
 

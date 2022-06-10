@@ -4,19 +4,20 @@
     export let tcolor = "black";
     export let direct;
     export let onclick;
+    export let width;
     
 </script>
 
 {#if !onclick }
-    <button style="background-color: {bcolor}; color: {tcolor};" href="{direct}">
+    <button style="background-color: {bcolor}; color: {tcolor}; width:{width}" href="{direct}">
     {msg}
     </button>
 {:else if !direct}
-    <button style="background-color: {bcolor}; color: {tcolor};" on:click={onclick}>
+    <button style="background-color: {bcolor}; color: {tcolor}; width:{width}" on:click={onclick}>
     {msg}
     </button>
 {:else}
-    <button style="background-color: {bcolor}; color: {tcolor};" href="{direct}" on:click={onclick}>
+    <button style="background-color: {bcolor}; color: {tcolor}; width:{width}" href="{direct}" on:click={onclick}>
     {msg}
     </button>
 {/if}
