@@ -1,9 +1,23 @@
+
+<script context="module">
+	//PRELOADER
+    export async function load(page) {
+		return { 
+  			props: { 
+				focus: page.params.site
+			} 
+		}
+    }
+</script>
+
+
 <script>
 	//import Box from '$lib/components/Box.svelte';
 	import Pages from '$lib/components/Pages.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Table from '$lib/components/Table.svelte';
-	import '../app.css';
+	import Tabs from '$lib/components/Tabs.svelte';
+	import '../../app.css';
 
 	//import '../scripts/dashboard.js'
 
@@ -12,7 +26,11 @@
 	let APIURL = "http://localhost:8080";
 
 
-	let focus = "example.com"
+	//let focus = "example.com"
+
+	export let focus
+		
+
 
 
 	let headers = ["Page", "Missing ALTs", "Missing Meta Tags", "Excess Bytes"];
@@ -59,26 +77,36 @@
 	<h2 id="focus">{focus}</h2>
 		
 
-	 
+	 <div id="panel">
+		<a>Sitemap</a> <br/>
+		<a>Settings</a> <br/>
+
+	 </div>
 	  
-	  <div id="tables">
-		<div id="sitemap-table" class="center">
-			<Table title={"Sitemaps"} ths={["URL"]}/>
+	  
+
+		
+
+		
+		<div id="pages-tabs" class="center">
+			<Tabs tabs={[{title: "HTML", id: "raw-pages-table"}, {title: "CMS", id: "cms-pages-table"}, {title: "Sitemap", id: "sitemap-table"}]} >
+			
+				<div id="raw-pages-table" class="center, tab-content">
+					<Pages headers={headers} features={features}/>
+				</div>
+		
+		
+				<div id="cms-pages-table" class="center, tab-content">
+					<Table title={"CMS"} ths={["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]}/>
+				</div>
+			
+				<div id="sitemap-table" class="center, tab-content">
+					<Table title={"Sitemaps"} ths={["URL"]}/>
+				</div>
+				
+			</Tabs>
 		</div>
 
-
-		<div id="pages-tabs">
-			<div id="raw-pages-table" class="center">
-				<Pages headers={headers} features={features}/>
-			</div>
-	
-	
-			<div id="cms-pages-table" class="center">
-				<Table title={"CMS"} ths={["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]}/>
-			</div>
-		</div>
-
-	  </div>
 	 
 			
 	
@@ -88,37 +116,34 @@
 
 <style>
 
-	#tables {
-		display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        gap: 5px;
-	}
+	#raw-pages-table{width: 300px;}
+	#cms-pages-table{width: 300px;}
 
-	/*#raw-pages-table {
 
-		grid-column: 4 / 10;
-        grid-row: 3 / 4;
-	}
-
-	#cms-pages-table {
-		grid-column: 2 / 3;
-        grid-row: 8 / 9;
-	}*/
 
 	#pages-tabs {
-		grid-column: 4 / 5;
-		grid-row: 3 / 4;
+		margin-top: 40px;
 	}
 
-	#sitemap-table {
-		grid-column: 2 / 3;
-        grid-row: 3 / 4;
-	}
+	
 
 	#focus {
 		margin-top: 20px;
 		margin-left: 20px;
 	}
 
+	#panel {
+		float: left;
+		clear: left;
+		display: block;
+		box-shadow: 0 0 15px lightgray;
+		background-color: var(--light-active-color);
+		margin-top: 40px;
+		height: 200%;
+		border-top-right-radius: 10px;
+		width: 200px;
+		position: absolute;
+		padding: 30px;
+	}
 
 </style>

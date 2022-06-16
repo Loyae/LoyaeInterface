@@ -38,6 +38,21 @@
 
 
 <style>
+/*
+table tr:last-child td:first-child {
+    border: 2px solid red;
+    border-bottom-left-radius: 10px;
+    }
+    
+table tr:last-child td:last-child {
+    border: 2px solid green;
+    border-bottom-right-radius: 10px;
+}*/
+
+caption {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
     
 table.timecard {
 	margin: auto;

@@ -25,7 +25,7 @@ export let title;
       <div class="user-settings">
        
        <div>
-         <span class="user-name">John Lins</span> • <a href="/signup">Login</a>
+         <span class="user-name">John Lins</span> • <a href="/signin">Login</a>
         </div>
       </div>
 </nav>

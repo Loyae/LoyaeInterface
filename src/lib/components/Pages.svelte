@@ -48,7 +48,7 @@ table, th {
 table {
     /*border:1px solid black;*/
     border-radius: 10px;
-    box-shadow: 0px 0px 15px gray;
+    box-shadow: 0px 0px 15px lightgray;
 }
 
 </style>

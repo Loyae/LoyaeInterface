@@ -11,7 +11,7 @@
 <div id="form">
     <h3>{title}</h3>
     <div class="form-button">
-        <Button bcolor={"red"} tcolor={"white"} msg={"Google"} direct={direct} width="100%"/>
+        <Button bcolor={"#D84457"} tcolor={"white"} msg={"Google"} direct={direct} width="100%"/>
     </div>
 
     <div class="form-button">
@@ -19,11 +19,11 @@
     </div>
 
     <div class="form-button">
-        <Button bcolor={"blue"} tcolor={"white"} msg={"Linkedin"} direct={direct} width="100%"/>
+        <Button bcolor={"#0072B1"} tcolor={"white"} msg={"Linkedin"} direct={direct} width="100%"/>
      </div>
 
     <div class="form-button">
-        <Button bcolor={"blue"} tcolor={"white"} msg={"Facebook"} direct={direct} width="100%"/>
+        <Button bcolor={"#1877F2"} tcolor={"white"} msg={"Facebook"} direct={direct} width="100%"/>
     </div>
     <br/>
     <hr/>
@@ -31,22 +31,37 @@
 
 
     <form action="/action_page.php">
-        <label for="fname">First Name</label><br>
-        <input type="text" id="fname" name="fname" value="John"><br>
-        <label for="lname">Last Name:</label><br>
-        <input type="text" id="lname" name="lname" value="Doe"><br>
-        <label for="lname">Email:</label><br>
-        <input type="text" id="lname" name="lname" value="Doe"><br>
-        <label for="lname">Password:</label><br>
-        <input type="text" id="lname" name="lname" value="Doe"><br>
-        <label for="lname">Re-Type Password:</label><br>
-        <input type="text" id="lname" name="lname" value="Doe"><br>
+
+        {#if title == "Sign Up"}
+        <input type="text" id="username" name="username" placeholder="Username:"><br>
+        <input type="text" id="email" name="email" placeholder="Email:"><br>
+        {:else}
+        <input type="email" id="usernameoremail" name="usernameoremail" placeholder="Username or Email:"><br>
+        {/if}
+
+
+        <input type="password" id="password" name="password" placeholder="Password:"><br>
+        {#if title == "Sign Up"}
+            <input type="text" id="re" name="re" placeholder="Re-Type Password:"><br>
+        {/if}
+        
         <!--<input type="submit" value="Submit">-->
       </form> 
 
     <div class="form-button">
         <Button bcolor={"var(--active-color)"} tcolor={"white"} msg={prompt} direct={direct} width="100%"/>
     </div>
+
+    <br/>
+
+    {#if title == "Sign Up"}
+        <span>Have an account? Log in <a href="/signin">here</a>!</span>
+    {:else}
+        {#if title == "Sign In"}
+            <span>Don't have an account? Sign up <a href="/signup">here</a>!</span>
+        {/if}
+    {/if}
+
 
 
 
@@ -61,7 +76,7 @@
         border-radius: 15px;
         padding: 10px;
         margin: 40px 10px 10px 10px;
-        height: 600px;
+        height: auto;
         width: 400px;
     }
 
@@ -69,5 +84,19 @@
         margin: 10px;
     }
 
+    input {
+        display: block;
+        padding: 10px;
+        background-color: #fdf1f1;
+        border-radius: 10px;
+        width: 100%;
+        height: 40px;
+        border: 0;
+    }
+
+    input::placeholder {
+        color: var(--active-color);
+        font-weight: bold;
+    }
 
 </style>
