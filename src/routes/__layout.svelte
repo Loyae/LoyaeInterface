@@ -2,7 +2,7 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import '../app.css';
 
-	let nav_hrefs = [["Manage","/manage"], ["Home","index.html"], ["Help","#"]];
+	let nav_hrefs = [["Manage","/manage"], ["Home","/"], ["Help","#"]];
 
 	var date = new Date();
 	var yyyy = date.getFullYear();
@@ -23,6 +23,16 @@
 </footer>
 
 <style>
+	header {
+		position: fixed;
+		width: 100%;
+		top: 0;
+		z-index: 999;
+	}
+
+	header + main {
+  padding-top: 60px;
+}
 	footer {
 		display: flex;
 		flex-direction: column;
