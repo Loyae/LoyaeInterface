@@ -1,6 +1,7 @@
 <script>
 	
 	import Form from '$lib/components/Form.svelte';
+	var APIURL = "https://bouncy-party-production.up.railway.app/"//"http://localhost:8080"
 
 
 </script>
@@ -15,7 +16,7 @@
 <main>
 
 <center>
-<Form title={"Sign In"} prompt={"Sign In"} direct={"http://localhost:3000"} class="center"/>
+<Form title={"Sign In"} prompt={"Sign In"} direct={APIURL + "/login"} class="center" APIURL={APIURL}/>
 </center>
 
 </main>

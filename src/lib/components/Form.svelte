@@ -2,6 +2,7 @@
     export let title;
     export let prompt;
     export let direct;
+    export let APIURL;
     
     
 	import Button from '$lib/components/Button.svelte';
@@ -11,46 +12,46 @@
 <div id="form">
     <h3>{title}</h3>
     <div class="form-button">
-        <Button bcolor={"#D84457"} tcolor={"white"} msg={"Google"} direct={direct} width="100%"/>
+        <Button bcolor={"#D84457"} tcolor={"white"} msg={"Google"} direct={APIURL + "/loginGoogle"} width="100%"/>
     </div>
 
     <div class="form-button">
-        <Button bcolor={"black"} tcolor={"white"} msg={"Github"} direct={direct} width="100%"/>
+        <Button bcolor={"black"} tcolor={"white"} msg={"Github"} direct={APIURL + "/loginGH"} width="100%"/>
     </div>
 
     <div class="form-button">
-        <Button bcolor={"#0072B1"} tcolor={"white"} msg={"Linkedin"} direct={direct} width="100%"/>
+        <Button bcolor={"#0072B1"} tcolor={"white"} msg={"Linkedin"} direct="" width="100%"/>
      </div>
 
     <div class="form-button">
-        <Button bcolor={"#1877F2"} tcolor={"white"} msg={"Facebook"} direct={direct} width="100%"/>
+        <Button bcolor={"#1877F2"} tcolor={"white"} msg={"Facebook"} direct={APIURL + "/loginFB"} width="100%"/>
     </div>
     <br/>
     <hr/>
     <br/>
 
 
-    <form action="/action_page.php">
+    <form method="post" action="{direct}">
 
         {#if title == "Sign Up"}
         <input type="text" id="username" name="username" placeholder="Username:"><br>
-        <input type="text" id="email" name="email" placeholder="Email:"><br>
-        {:else}
-        <input type="email" id="usernameoremail" name="usernameoremail" placeholder="Username or Email:"><br>
         {/if}
 
+        <input type="text" id="email" name="email" placeholder="Email:"><br>
 
         <input type="password" id="password" name="password" placeholder="Password:"><br>
+
         {#if title == "Sign Up"}
-            <input type="text" id="re" name="re" placeholder="Re-Type Password:"><br>
+            <input type="text" id="confirmpass" name="confirmpass" placeholder="Re-Type Password:"><br>
         {/if}
         
-        <!--<input type="submit" value="Submit">-->
+        <!--<input type="submit" value="SIGN IN"/>-->
+        <div class="form-button">
+            <Button bcolor={"var(--active-color)"} tcolor={"white"} msg={prompt} width="100%" type="submit"/>
+        </div>
       </form> 
 
-    <div class="form-button">
-        <Button bcolor={"var(--active-color)"} tcolor={"white"} msg={prompt} direct={direct} width="100%"/>
-    </div>
+    
 
     <br/>
 

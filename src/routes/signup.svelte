@@ -1,7 +1,7 @@
 <script>
 	
 	import Form from '$lib/components/Form.svelte';
-
+	var APIURL = "http://localhost:8080"
 
 </script>
 
@@ -15,7 +15,7 @@
 <main>
 
 <center>
-<Form title={"Sign Up"} prompt={"Sign Up"} direct={"http://localhost:3000"} class="center"/>
+<Form title={"Sign Up"} prompt={"Sign Up"} direct={APIURL +"/register"} class="center" APIURL={APIURL}/>
 </center>
 
 </main>
