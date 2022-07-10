@@ -14,7 +14,6 @@
 </head>
 
 <main>
-	<p>Manage</p>
 
 	<div id="site-list">
 		{#each sitelist as site}
@@ -29,9 +28,12 @@
 			</a>
 		{/each}
 
-		<div class="block" id="new-site">
-			<span>+</span>
-		</div>
+		<a href="/">
+			<div class="block" id="new-site">
+				<span>+</span>
+			</div>
+		</a>
+		
 
 	</div>
 
@@ -42,6 +44,10 @@
 
 #site-list {
 	background-color: var(--light-active-color);
+	
+}
+#site-list a {
+	text-decoration: none;
 }
 
 .block {
@@ -50,6 +56,7 @@
 	height: 200px;
 	width: 200px;
 	overflow: hidden;
+	box-shadow: 0px 0px 15px lightgray;
 }
 
 .block:hover {
@@ -71,15 +78,18 @@
 	margin: 30px;
 }
 
-#new-site {
-	text-align: justify;
+#new-site span{
+	text-align: center;
+	font-size: 100px;
+	vertical-align: middle;
+	
 }
 
-#new-site:after {
-  content: "";
-  display: inline-block;
-  width: 100%;
+#new-site{
+    align-items: center;
 }
+
+
 
 .site-favicon {
 	position: absolute;
