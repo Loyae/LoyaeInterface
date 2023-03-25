@@ -1,6 +1,9 @@
 <script>
-    export let title;
+  import { dataset_dev } from "svelte/internal";
 
+
+    export let title;
+    export let data;
     export let ths;
 </script>
 
@@ -15,10 +18,20 @@
         </tr>
     </thead>
     <tbody>
-
+        <!-- {i%2==0 ? 'even' : 'odd'} -->
+        <!-- <p>{data[0].page}</p> -->
+         {#each Array(data.length) as _, i}
+        <tr class="{i%2==0 ? 'even' : 'odd'}">
+            <th>▶</th>
+            <th>{data[i].Whois.title}</th>
+            <td>{data[i].Whois.domain}</td>
+            <td>{data[i].FetchMeta.description}</td>
+            <td>{data[i].MissingAlts}</td>
+        </tr>
         
+        {/each} 
 
-        <tr class="odd">
+        <!-- <tr class="odd">
             <th>Monday</th>
             <td>8</td>
             <td>0</td>
@@ -29,7 +42,8 @@
             <td>8</td>
             <td>2.5</td>
             <td>10.5</td>
-        </tr>
+        </tr> -->
+        
        
     </tbody>
 
@@ -52,6 +66,7 @@ table tr:last-child td:last-child {
 caption {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    padding: 5px;
 }
     
 table.timecard {

@@ -23,7 +23,7 @@
 
 	import {onMount} from 'svelte'
 
-	let APIURL = "http://localhost:8080";
+	let APIURL = "https://bouncy-party-production.up.railway.app"//"http://localhost:8080";
 
 
 	//let focus = "example.com"
@@ -33,32 +33,37 @@
 
 
 
-	let headers = ["Page", "Missing ALTs", "Missing Meta Tags", "Excess Bytes"];
+	//let headers = ["Page", "Missing ALTs", "Missing Meta Tags", "Excess Bytes"];
 	
 
-	function construct_features(page, missing_alts, meta_tags, excess_bytes){
+	function construct_features(page, missing_alts, meta_tags, site_size, fetch_alt){
 			return {
 				page: page,
 				missing_alts: missing_alts,
 				meta_tags: meta_tags,
-				excess_bytes: excess_bytes
+				site_size: site_size,
+				fetch_alt: fetch_alt,
+				//site_size: site_size
 			}
 		}
-
-
+		//window.alert("1");
+	let pages = ["edx.org/search", "edx.org"]
 	let features = [];
-	for(let i=0; i < 3; i++){
+	for(let i=0; i < pages.length; i++){
 		let received = [];
 		onMount(async () => {
-			const response = await fetch(APIURL +`/stats?url=${encodeURIComponent("edx.org")}`)
+			const response = await fetch(APIURL +`/stats?url=${encodeURIComponent(pages[i])}`)
 			received = await response.json()
-
-			features[i] = construct_features("/index.html", received.MissingAlts, ["title","keywords", "description", "OG"], 1000);
+			
 			//window.alert(received.MissingAlts)
+			features[i] =  received;//{page: "j", missing_alts: received.MissingAlts, meta_tags: received.FetchMeta}//construct_features(pages[i], received.MissingAlts, received.FetchMeta, received.InternalSiteSize, received.FetchAlt);
+			
 		})
 	}
 
-
+	
+	// features[0] = {page: "▼ h", missing_alts: 5}
+	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
 	
@@ -77,34 +82,25 @@
 	<h2 id="focus">{focus}</h2>
 		
 
-	 <div id="panel">
-		<a>Sitemap</a> <br/>
-		<a>Settings</a> <br/>
-
-	 </div>
 	  
 	  
 
 		
 
 		
-		<div id="pages-tabs" class="center">
-			<Tabs tabs={[{title: "HTML", id: "raw-pages-table"}, {title: "CMS", id: "cms-pages-table"}, {title: "Sitemap", id: "sitemap-table"}]} >
+		<div class="center" style="margin-top: 40px;">
 			
-				<div id="raw-pages-table" class="center, tab-content">
+				<!-- <div id="raw-pages-table" class="center, tab-content">
 					<Pages headers={headers} features={features}/>
-				</div>
+				</div> -->
 		
 		
-				<div id="cms-pages-table" class="center, tab-content">
-					<Table title={"CMS"} ths={["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]}/>
-				</div>
-			
-				<div id="sitemap-table" class="center, tab-content">
-					<Table title={"Sitemaps"} ths={["URL"]}/>
-				</div>
 				
-			</Tabs>
+					<Table title={"Diagnostic"} ths={[" ", "Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]} data={features}/>
+				
+			
+				
+			
 		</div>
 
 	 
@@ -116,14 +112,7 @@
 
 <style>
 
-	#raw-pages-table{width: 300px;}
-	#cms-pages-table{width: 300px;}
 
-
-
-	#pages-tabs {
-		margin-top: 40px;
-	}
 
 	
 
@@ -132,18 +121,6 @@
 		margin-left: 20px;
 	}
 
-	#panel {
-		float: left;
-		clear: left;
-		display: block;
-		box-shadow: 0 0 15px lightgray;
-		background-color: var(--light-active-color);
-		margin-top: 40px;
-		height: 200%;
-		border-top-right-radius: 10px;
-		width: 200px;
-		position: absolute;
-		padding: 30px;
-	}
+	
 
 </style>
