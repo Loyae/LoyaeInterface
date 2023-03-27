@@ -24,10 +24,10 @@ export let title;
       </div>
       <div class="user-settings">
        
-       <div>
+       <!-- <div>
          <span class="user-name">John Lins</span> • <a href="/signin">Login</a>
         </div>
-      </div>
+      </div> -->
 </nav>
 
 
