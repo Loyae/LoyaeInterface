@@ -17,6 +17,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import Table from '$lib/components/Table.svelte';
 	import Tabs from '$lib/components/Tabs.svelte';
+	import Drop from '$lib/components/Drop.svelte';
 	import '../../app.css';
 
 	//import '../scripts/dashboard.js'
@@ -27,7 +28,10 @@
 
 
 	export let focus
-		
+
+
+	
+	
 
 	
 
@@ -87,7 +91,7 @@
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	
+	const header=["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]
 
 </script>
 
@@ -100,34 +104,52 @@
 	</head>
 
 
-	<h2 id="focus">{focus}</h2>
+	<div class="center" style="width: 85%;margin-top: 20px;border:solid black 1px;position:relative;text-align: left;">
+		<h2 id="focus">{focus}</h2>
 
-	<p> {features.length}</p>
+			
+		<form action="/">
+			<input type="text" id="name" name="name" value="NAME">
+			<input type="text" id="email" name="email" value="EMAIL">
+			<input type="submit" value="Join Waitlist">
+		</form> 
+	</div>
 		
+		
+							
 
 		<div class="center" style="margin-top: 40px;">
 			<table class="timecard">
-				<caption>Diagnostic</caption>
+				<caption>Diagnostic ({features.length})</caption>
 				<thead>
 					<tr>
-						{#each [" ", "Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"] as th}
+						{#each header as th}
 						<th>{th}</th>
 						{/each}
 					</tr>
 				</thead>
 				<tbody>
+					<th style="background-color: lightgray;" colspan="{header.length}"><center>{focus}</center></th>
 					{#each Array(features.length) as _, i}
 
 
 					<!--run loop in here-->
 
 					<tr class="{i%2==0 ? 'even' : 'odd'}">
-						<th>▶</th>
 						<th>{features[i].Whois.title}</th>
-						<td>{features[i].Whois.domain}</td>
+						<td><a href="{`http://"`+features[i].Whois.domain}">{features[i].Whois.domain}</a></td>
 						<td>{features[i].FetchMeta.description}</td>
-						<td>{features[i].MissingAlts}</td>
+						<td style="color: red">{features[i].MissingAlts}</td>
 					</tr>
+					<th colspan="{header.length}" class="{i%2==0 ? 'even' : 'odd'}">
+						<Drop>
+							<center>
+							<p>Size: {features[i].InternalSiteSize}</p>
+							<br/>
+							<p>Speed: {features[i].RequestSpeed}</p>
+							</center>
+						</Drop>
+					</th>
 					
 					{/each} 
 					
@@ -137,7 +159,23 @@
 			</table>
 
 			
+			
+			
 		</div>
+
+<br/>
+			<br/>
+			<div  class="center">
+				<p>Crawl A New Page: </p>
+				<input type="text" id="new-url-input" placeholder="example.com"/>
+				<button onclick="newpage()" type="submit" class="shadow-hover search-buttons">Launch</button>
+				<script>
+					function newpage(){
+						window.open(window.location.host + "/dashboard/" + document.getElementById("new-url-input").value, "_blank");
+					}
+				</script>
+			</div>
+
 
 	 
 
@@ -148,21 +186,23 @@
 	
 
 	#focus {
-		margin-top: 20px;
-		margin-left: 20px;
+		float: left;
+		left:0;
+		text-align: left;
+		
 	}
 
 	
 
 	caption {
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    padding: 5px;
-}
+		border-top-right-radius: 10px;
+		border-top-left-radius: 10px;
+		padding: 5px;
+	}
     
 table.timecard {
 	margin: auto;
-	width: 600px;
+	width: 85%;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px lightgray;
 }
@@ -179,23 +219,16 @@ table.timecard thead th {
 	font-size: large;
 }
 
-table.timecard thead th #thDay {
-	width: 40%;	
-}
-
-table.timecard thead th #thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
-	width: 20%;
-}
 
 table.timecard th, table.timecard td {
 	padding: 3px;
 	border-width: 1px;
-	border-style: solid;
+	border-left-style: solid;
 	border-color: var(--light-active-color) lightgray;
 }
 
 table.timecard td {
-	text-align: right;
+	text-align: left;
 }
 
 table.timecard tbody th {
@@ -203,10 +236,10 @@ table.timecard tbody th {
 	font-weight: normal;
 }
 
-table.timecard tr.even {
+table.timecard tr.even, th.even {
 	background-color: var(--light-active-color);
 }
-table.timecard tr.odd {
+table.timecard tr.odd, th.odd{
 	background-color: white;
 }
 

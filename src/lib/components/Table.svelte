@@ -88,13 +88,7 @@ table.timecard thead th {
 	font-size: large;
 }
 
-table.timecard thead th #thDay {
-	width: 40%;	
-}
 
-table.timecard thead th #thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
-	width: 20%;
-}
 
 table.timecard th, table.timecard td {
 	padding: 3px;
