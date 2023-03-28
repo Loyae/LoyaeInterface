@@ -1,24 +1,39 @@
-
 <script context="module">
-	//PRELOADER
-    export async function load(page) {
-		return { 
-  			props: { 
-				focus: page.params.site
-			} 
-		}
-    }
-</script>
-
+export async function load({ url }) {
+    return {props:{focus: url.searchParams.get('url')}};
+}
+  </script>
 
 <script>
+	console.log("START")
+	//import { page } from '$app/stores';
+	//import { page } from '$app/stores';
+	//PRELOADER
+    // export async function load() {
+		
+	// 	return { 
+  	// 		props: { 
+	// 			focus: page.searchParams.get("url")
+	// 		} 
+	// 	};
+    // }
+
+// 	export let page;
+//   const searchParams = new URLSearchParams(page.query);
+//   const focus = searchParams.get('url');
+	
+
+
 	//import Box from '$lib/components/Box.svelte';
-	import Pages from '$lib/components/Pages.svelte';
-	import Button from '$lib/components/Button.svelte';
-	import Table from '$lib/components/Table.svelte';
-	import Tabs from '$lib/components/Tabs.svelte';
+	// import Pages from '$lib/components/Pages.svelte';
+	// import Button from '$lib/components/Button.svelte';
+	// import Table from '$lib/components/Table.svelte';
+	// import Tabs from '$lib/components/Tabs.svelte';
 	import Drop from '$lib/components/Drop.svelte';
-	import '../../app.css';
+	import '../app.css';
+
+	
+	
 
 	//import '../scripts/dashboard.js'
 
@@ -26,9 +41,10 @@
 
 	let APIURL = "https://bouncy-party-production.up.railway.app"//"http://localhost:8080";
 
-
 	export let focus
+	//export let focus
 
+	
 
 	
 	
@@ -54,7 +70,9 @@
 		let features = [];
 		let sitemap_received
 		let another_sitemap_received
+
 		onMount(async () => {
+			console.log("INSIDE")
 			const focus_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(focus)}`)
 			features[0] = await focus_stat_response.json()
 			
@@ -86,7 +104,7 @@
 		 })
 	
 
-	
+	console.log(features[0])
 	// features[0] = {page: "▼ h", missing_alts: 5}
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
@@ -104,15 +122,29 @@
 	</head>
 
 
-	<div class="center" style="width: 85%;margin-top: 20px;border:solid black 1px;position:relative;text-align: left;">
-		<h2 id="focus">{focus}</h2>
-
+	<div class="center" style="width: 85%;margin-top: 20px;position:relative;text-align: left;justify-content: left;">
+		<div style="margin-right: 62%;">
+			<!-- {#if features[0].Whois.favicon != ""} -->
+				<!-- <p>{features[0].Whois.favicon}</p> -->
+			<!-- {/if} -->
 			
-		<form action="/">
-			<input type="text" id="name" name="name" value="NAME">
-			<input type="text" id="email" name="email" value="EMAIL">
-			<input type="submit" value="Join Waitlist">
-		</form> 
+			
+
+			<h2 id="focus">{focus}</h2>
+		</div>
+
+		<div>
+			<form action="/">
+				<input type="text" id="name" name="name" value="NAME">
+				<input type="text" id="email" name="email" value="EMAIL">
+				<input type="submit" value="Join Waitlist">
+			</form> 
+		</div>
+
+
+		<!-- <h2>
+			Wordpress Plugin Comming Soon
+		</h2> -->
 	</div>
 		
 		
@@ -163,15 +195,20 @@
 			
 		</div>
 
-<br/>
 			<br/>
+			<br/>
+			<center>
+				<p>Crawl A New Page: </p><br/>
+			</center>
+
 			<div  class="center">
-				<p>Crawl A New Page: </p>
-				<input type="text" id="new-url-input" placeholder="example.com"/>
-				<button onclick="newpage()" type="submit" class="shadow-hover search-buttons">Launch</button>
+				<input type="text" id="new-url-input" placeholder="example.com" />
+				<!-- <button onclick="newpage()" type="submit" class="shadow-hover search-buttons">Launch</button> -->
+				<button onclick="newpage()">DIAGNOSE</button>
+				
 				<script>
 					function newpage(){
-						window.open(window.location.host + "/dashboard/" + document.getElementById("new-url-input").value, "_blank");
+						window.open("http://"+window.location.host + '/diagnose?url=' + document.getElementById('new-url-input').value, '_blank');
 					}
 				</script>
 			</div>
@@ -181,8 +218,29 @@
 
 <style>
 
+input[type=text]{
+	margin-right: 10px;
+	padding: 10px; 
+	border: none; 
+	background-color: var(--light-active-color); 
+	border-radius:10px
+}
 
-
+button, input[type=submit] {
+	border-radius: 10px; 
+	border: none; 
+	background-color: var(--active-color);
+	color: white; 
+	border-radius: 10px; 
+	padding: 10px
+       
+    }
+    
+    button:hover {
+       /* box-shadow: 0 0 10px lightcoral;*/
+        filter: brightness(0.95);
+        cursor: pointer;
+	}
 	
 
 	#focus {
