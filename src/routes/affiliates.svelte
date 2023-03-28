@@ -1,6 +1,6 @@
 <script>
     import Button from '$lib/components/Button.svelte';
-    import Popup from '../lib/components/popup.svelte';
+    import Popup from '../lib/components/Drop.svelte';
 </script>
 
 <head>
