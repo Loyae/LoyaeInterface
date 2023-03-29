@@ -39,7 +39,7 @@ export async function load({ url }) {
 
 	import {onMount} from 'svelte'
 
-	let APIURL = "https://bouncy-party-production.up.railway.app"//"http://localhost:8080";
+	let APIURL = "https://api.loyae.com"//"http://localhost:8080";
 
 	export let focus
 	//export let focus
@@ -66,6 +66,7 @@ export async function load({ url }) {
 			
 	// 	})
 	// }
+		let MAX_DIAG = 30;
 
 		let features = [];
 		let sitemap_received
@@ -84,6 +85,9 @@ export async function load({ url }) {
 
 
 			for(let i = 0; i < sitemap_received.Sitemap.Directs.length; i++){
+				if(features.length >= MAX_DIAG){
+					break;
+				}
 				const direct_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(sitemap_received.Sitemap.Directs[i].Loc)}`)
 				features[1+i] = await direct_stat_response.json()
 			}
@@ -95,6 +99,9 @@ export async function load({ url }) {
 				another_sitemap_received = await another_response.json()
 
 				for(let j = 0; j < another_sitemap_received.Sitemap.Directs.length; j++){
+					if(features.length >= MAX_DIAG){
+						break;
+					}
 					const another_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(another_sitemap_received.Sitemap.Directs[i].Loc)}`)
 					features[features.length + j] = await another_stat_response.json()
 					
@@ -109,7 +116,7 @@ export async function load({ url }) {
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	const header=["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data"]
+	const header=["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data Tags"]
 
 </script>
 
@@ -123,16 +130,12 @@ export async function load({ url }) {
 
 
 	<div class="center" style="width: 85%;margin-top: 20px;position:relative;text-align: left;justify-content: left;">
-		<div style="margin-right: 62%;">
-			<!-- {#if features[0].Whois.favicon != ""} -->
-				<!-- <p>{features[0].Whois.favicon}</p> -->
-			<!-- {/if} -->
-			
-			
-
-			<h2 id="focus">{focus}</h2>
+		<div style="margin-right: 5px;vertical-align: middle;">
+			{#if features.length >= 1 && features[0].Whois.favicon != ""} 
+				<img src="{features[0].Whois.favicon}" alt="favicon" height="30px"/>
+			{/if}
 		</div>
-
+		<h2 style="margin-right: 10%">{focus}</h2>
 		<div>
 			<form action="/">
 				<input type="text" id="name" name="name" value="NAME">
@@ -150,7 +153,7 @@ export async function load({ url }) {
 		
 							
 
-		<div class="center" style="margin-top: 40px;">
+		<div class="center" style="margin-top: 40px; max-height: 650px;overflow: auto;">
 			<table class="timecard">
 				<caption>Diagnostic ({features.length})</caption>
 				<thead>
@@ -185,15 +188,20 @@ export async function load({ url }) {
 					
 					{/each} 
 					
+					
 				
 				</tbody>
 
 			</table>
-
-			
-			
-			
+			<br/>
+					
 		</div>
+
+		{#if features.length >= MAX_DIAG}
+						<div style="color: red" colspan="{header.length}" class="center">
+							<b>MAX # OF ROWS PER SESSION REACHED ({MAX_DIAG})</b>
+						</div>
+					{/if}
 
 			<br/>
 			<br/>
@@ -243,12 +251,7 @@ button, input[type=submit] {
 	}
 	
 
-	#focus {
-		float: left;
-		left:0;
-		text-align: left;
-		
-	}
+
 
 	
 
