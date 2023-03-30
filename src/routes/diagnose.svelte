@@ -178,31 +178,37 @@ export async function load({ url }) {
 					<tr class="{i%2==0 ? 'even' : 'odd'}">
 						<th>{features[i].Whois.title}</th>
 						<td><a href="{`http://"`+features[i].Whois.domain}">{features[i].Whois.domain}</a></td>
-						<td style="color: red">{features[i].MissingAlts}/{features[i].FetchAlt.length}</td>
+						<td style="color: red">{features[i].MissingAlts}/{#if features[i].FetchAlt != null}{features[i].FetchAlt.length}{:else}NA{/if}</td>
 						<td>{#if features[i].FetchMeta.description == ""}Missing{:else}Exists{/if}</td>
-						<td>{#if features[i].FetchMeta.keywords.split(",").length < 10}<span style="color:red">{features[i].FetchMeta.keywords.split(",").length}/10</span>{:else}<span style="color:green">{features[i].FetchMeta.keywords.split(",").length}/10</span>{/if}</td>
+						<td>{#if (typeof features[i].FetchMeta.keywords != 'undefined')}
+								 {#if features[i].FetchMeta.keywords.split(",").length < 10}<span style="color:red">{features[i].FetchMeta.keywords.split(",").length}/10</span>{:else}<span style="color:green">{features[i].FetchMeta.keywords.split(",").length}/10</span>{/if}
+							{:else}
+								<span style="color: red;">ERR</span>
+							{/if}
+								</td>
+						
 						<td style="width: 20%">
-							{#if features[i].FetchMetaOG.description == ""}
+							{#if (typeof features[i].FetchMetaOG.description != 'undefined') && features[i].FetchMetaOG.description == ""}
 							<span style="color: red">Missing og:description</span><br/>
 							{:else}
 							<span style="color: green">Has og:description</span><br/>
 							{/if}
-							{#if features[i].FetchMetaOG.image == ""}
+							{#if (typeof features[i].FetchMetaOG.image != 'undefined') && features[i].FetchMetaOG.image == ""}
 							<span style="color: red">Missing og:image</span><br/>
 							{:else}
 							<span style="color: green">Has og:image</span><br/>
 							{/if}
-							{#if features[i].FetchMetaOG.site_name == ""}
+							{#if (typeof features[i].FetchMetaOG.site_name != 'undefined') && features[i].FetchMetaOG.site_name == ""}
 							<span style="color: red">Missing og:site_name</span><br/>
 							{:else}
 							<span style="color: green">Has og:site_name</span><br/>
 							{/if}
-							{#if features[i].FetchMetaOG.title == ""}
+							{#if (typeof features[i].FetchMetaOG.title != 'undefined') && features[i].FetchMetaOG.title == ""}
 							<span style="color: red">Missing og:title</span><br/>
 							{:else}
 							<span style="color: green">Has og:title</span><br/>
 							{/if}
-							{#if features[i].FetchMetaOG.url == ""}
+							{#if (typeof features[i].FetchMetaOG.url != 'undefined') && features[i].FetchMetaOG.url == ""}
 							<span style="color: red">Missing og:url</span><br/>
 							{:else}
 							<span style="color: green">Has og:url</span><br/>
