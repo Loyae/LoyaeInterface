@@ -116,7 +116,7 @@ export async function load({ url }) {
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	const header=["Title", "URL", "Missing Meta Data", "# Of Missing Alt Data Tags"]
+	const header=["Title", "URL", "Missing Image ALT Text", "Meta Description", "Meta Keywords", "OG Meta Tags", "Supplementary & 3rd Party Meta Tags"]
 
 </script>
 
@@ -155,7 +155,12 @@ export async function load({ url }) {
 
 		<div class="center" style="margin-top: 40px; max-height: 650px;overflow: auto;">
 			<table class="timecard">
-				<caption>Diagnostic ({features.length})</caption>
+				
+				<caption>
+					{#if features.length == 0}
+					<div class="loader"></div>
+					{/if}
+					Diagnostic ({features.length})</caption>
 				<thead>
 					<tr>
 						{#each header as th}
@@ -173,8 +178,39 @@ export async function load({ url }) {
 					<tr class="{i%2==0 ? 'even' : 'odd'}">
 						<th>{features[i].Whois.title}</th>
 						<td><a href="{`http://"`+features[i].Whois.domain}">{features[i].Whois.domain}</a></td>
-						<td>{features[i].FetchMeta.description}</td>
-						<td style="color: red">{features[i].MissingAlts}</td>
+						<td style="color: red">{features[i].MissingAlts}/{features[i].FetchAlt.length}</td>
+						<td>{#if features[i].FetchMeta.description == ""}Missing{:else}Exists{/if}</td>
+						<td>{#if features[i].FetchMeta.keywords.split(",").length < 10}<span style="color:red">{features[i].FetchMeta.keywords.split(",").length}/10</span>{:else}<span style="color:green">{features[i].FetchMeta.keywords.split(",").length}/10</span>{/if}</td>
+						<td style="width: 20%">
+							{#if features[i].FetchMetaOG.description == ""}
+							<span style="color: red">Missing og:description</span><br/>
+							{:else}
+							<span style="color: green">Has og:description</span><br/>
+							{/if}
+							{#if features[i].FetchMetaOG.image == ""}
+							<span style="color: red">Missing og:image</span><br/>
+							{:else}
+							<span style="color: green">Has og:image</span><br/>
+							{/if}
+							{#if features[i].FetchMetaOG.site_name == ""}
+							<span style="color: red">Missing og:site_name</span><br/>
+							{:else}
+							<span style="color: green">Has og:site_name</span><br/>
+							{/if}
+							{#if features[i].FetchMetaOG.title == ""}
+							<span style="color: red">Missing og:title</span><br/>
+							{:else}
+							<span style="color: green">Has og:title</span><br/>
+							{/if}
+							{#if features[i].FetchMetaOG.url == ""}
+							<span style="color: red">Missing og:url</span><br/>
+							{:else}
+							<span style="color: green">Has og:url</span><br/>
+							{/if}
+						</td>
+						<td>
+							N/A
+						</td>
 					</tr>
 					<th colspan="{header.length}" class="{i%2==0 ? 'even' : 'odd'}">
 						<Drop>
@@ -182,7 +218,36 @@ export async function load({ url }) {
 							<p>Size: {features[i].InternalSiteSize}</p>
 							<br/>
 							<p>Speed: {features[i].RequestSpeed}</p>
-							</center>
+							<br/>
+							<p>Meta description: {features[i].FetchMeta.description}</p>
+							<br/>
+							<p>Meta Keywords: {features[i].FetchMeta.keywords}</p>
+							<br/>
+							<p>OG Meta description: {features[i].FetchMetaOG.description}</p>
+							<br/>
+							<p>OG Meta image: </p> <img src="{features[i].FetchMetaOG.image}" height="200px" alt="og"/>
+							<br/>
+							<p>OG Site Name: {features[i].FetchMetaOG.site_name}</p>
+							<br/>
+							<p>Import Sizes: </p><br/>
+							<p>CSS: {features[i].FetchImportSizes.CSSSize}</p><br/>
+							<p>IFrame: {features[i].FetchImportSizes.IFRAMESize}</p><br/>
+							<p>Image: {features[i].FetchImportSizes.IMAGESize}</p><br/>
+							<p>JS: {features[i].FetchImportSizes.JSSize}</p><br/>
+							<div>
+								images:
+								<div style="max-height: 250px; overflow:auto; ">
+								<table style="border: solid black 1px;">
+									{#each features[i].FetchAlt as img}
+										<tr>
+											<th><img src="{img[0]}" alt="{img[2]}" height="50px"/></th>
+											<th>{img[2]}</th>
+										</tr>
+									{/each}
+								</table>
+								</div>
+							</div>
+						</center>
 						</Drop>
 					</th>
 					
@@ -225,6 +290,40 @@ export async function load({ url }) {
 	 
 
 <style>
+
+.loader {
+  border: 6px solid white;
+  border-radius: 50%;
+  border-top: 6px solid lightcoral;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin .8s linear infinite;
+  /* Safari */
+  animation: spin .8s linear infinite;
+  display: block;
+  margin:0;
+  float: left;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 
 input[type=text]{
 	margin-right: 10px;

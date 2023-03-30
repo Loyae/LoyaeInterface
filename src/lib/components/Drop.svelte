@@ -3,8 +3,9 @@
 
     
 
-    let label = "▶"
-
+    let label;
+    let popup;
+    //let btnll;
    
 
 </script>
@@ -13,31 +14,19 @@
 
 
 
-<button id="down" onclick="popper()">{label}</button>
-    <div id="popup" style="display:none">
-        
-        <slot></slot>
-
-
-        <br/>
-
-
-    
-        
-    </div>
-    <script>
-        
-            function popper(){
-                if( document.getElementById("popup").style.display.toString()=="block"){
-                    document.getElementById("popup").style.display="none";
+<button id="down" on:click={()=>{
+                if (popup.style.display.toString()=="block"){
+                    label.innerHTML = "▶"
+                    popup.style.display="none";
                 } else {
-                    document.getElementById("popup").style.display="block";
-
-                }
-            }
-        
-    </script>
+                    label.innerHTML = "▼"
+                    popup.style.display="block";
+                }}}><div id="label" bind:this="{label}">▶</div></button>
     
+    <div id="popup" bind:this="{popup}" style="display:none">
+        <slot></slot>
+        <br/>   
+    </div>
     
 
 
