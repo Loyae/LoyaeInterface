@@ -30,9 +30,12 @@ export async function load({ url }) {
 	// import Table from '$lib/components/Table.svelte';
 	// import Tabs from '$lib/components/Tabs.svelte';
 	import Drop from '$lib/components/Drop.svelte';
+	import Countdown from '$lib/components/Countdown.svelte';
 	import '../app.css';
+	
 
 	
+  //import Countdown from '../lib/components/Countdown.svelte';
 	
 
 	//import '../scripts/dashboard.js'
@@ -47,8 +50,33 @@ export async function load({ url }) {
 	
 
 	
-	
+		// const waitlist_button = document.getElementById("waitlist_button");
+					// waitlist_button.addEventListener("click", joinwaitlist());
+					
+					function joinwaitlist() {
+						//alert(document.getElementById('waitlist_email').value)
+						if(document.getElementById('waitlist_email').value==""){
+							alert("Please enter your name and email, then try again.")
+						}
 
+						fetch("https://api.loyae.com/waitlist?name="+document.getElementById('waitlist_name').value+"&email="+document.getElementById('waitlist_email').value+"&url="+focus, {"method":"GET"}).then(response=>{
+									document.getElementById("waitlist_button").style.backgroundColor="lightgray";
+									document.getElementById("waitlist_button").innerHTML = "Joined!"
+								}).catch(err=>{
+									window.alert("Please enter your name and email, then try again.")
+								})
+							
+									
+					}
+
+
+
+
+		
+	   
+	
+			
+		 
 	
 
 
@@ -94,19 +122,19 @@ export async function load({ url }) {
 
 
 			//ALTERNATIVES ARN'T WORKING RN
-			for(let i = 0; i < sitemap_received.Sitemap.Anothers.length; i++){
-				const another_response = await fetch(APIURL +`/sitemap?xml=${encodeURIComponent(sitemap_received.Sitemap.Anothers[i].Loc)}`)
-				another_sitemap_received = await another_response.json()
+			// for(let i = 0; i < sitemap_received.Sitemap.Anothers.length; i++){
+			// 	const another_response = await fetch(APIURL +`/sitemap?xml=${encodeURIComponent(sitemap_received.Sitemap.Anothers[i].Loc)}`)
+			// 	another_sitemap_received = await another_response.json()
 
-				for(let j = 0; j < another_sitemap_received.Sitemap.Directs.length; j++){
-					if(features.length >= MAX_DIAG){
-						break;
-					}
-					const another_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(another_sitemap_received.Sitemap.Directs[i].Loc)}`)
-					features[features.length + j] = await another_stat_response.json()
+			// 	for(let j = 0; j < another_sitemap_received.Sitemap.Directs.length; j++){
+			// 		if(features.length >= MAX_DIAG){
+			// 			break;
+			// 		}
+			// 		const another_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(another_sitemap_received.Sitemap.Directs[i].Loc)}`)
+			// 		features[features.length + j] = await another_stat_response.json()
 					
-				}
-			}
+			// 	}
+			// }
 
 		 })
 	
@@ -129,19 +157,34 @@ export async function load({ url }) {
 	</head>
 
 
-	<div class="center" style="width: 85%;margin-top: 20px;position:relative;text-align: left;justify-content: left;">
-		<div style="margin-right: 5px;vertical-align: middle;">
-			{#if features.length >= 1 && features[0].Whois.favicon != ""} 
-				<img src="{features[0].Whois.favicon}" alt="favicon" height="30px"/>
-			{/if}
-		</div>
-		<h2 style="margin-right: 10%">{focus}</h2>
+	<div class="center" id="info-panel">
+		
+			<div id="favicon-display">
+				{#if features.length >= 1 && features[0].Whois.favicon != ""} 
+					<img src="{features[0].Whois.favicon}" alt="favicon" height="30px"/>
+				{/if}
+			</div>
+			<h2 id="focus-display">{focus}</h2>
+		
+
+		
 		<div>
-			<form action="/">
-				<input type="text" id="name" name="name" value="NAME">
-				<input type="text" id="email" name="email" value="EMAIL">
-				<input type="submit" value="Join Waitlist">
-			</form> 
+			<div>
+				<input type="text" id="waitlist_name" name="waitlist_name" placeholder="name">
+				<input type="text" id="waitlist_email" name="waitlist_email" placeholder="email">
+				<button on:click|once={joinwaitlist} id="waitlist_button">Join Waitlist</button>
+				
+			</div> 
+
+			
+				<!-- <Countdown FontSize="12"/> -->
+				<br/>
+				<div>  <b>API & Wordpress Plugin Releases In </b>
+				<!-- <b>{countdown_days} days : {countdown_hours} hours : {countdown_minutes} minutes : {countdown_seconds} seconds</b> -->
+				<Countdown date="july 6, 2023 01:30:00"/>
+				</div>
+	   
+			
 		</div>
 
 
@@ -153,7 +196,7 @@ export async function load({ url }) {
 		
 							
 
-		<div class="center" style="margin-top: 40px; max-height: 650px;overflow: auto;">
+		<div class="center" id="info-table">
 			<table class="timecard">
 				
 				<caption>
@@ -164,7 +207,12 @@ export async function load({ url }) {
 				<thead>
 					<tr>
 						{#each header as th}
-						<th>{th}</th>
+							{#if th === "URL"}
+								<th style="width: 10px; word-wrap: break-word;">{th}</th> <!--NOT WORKING-->
+							{:else}
+							<th>{th}</th>
+							{/if}
+						
 						{/each}
 					</tr>
 				</thead>
@@ -183,11 +231,11 @@ export async function load({ url }) {
 						<td>{#if (typeof features[i].FetchMeta.keywords != 'undefined')}
 								 {#if features[i].FetchMeta.keywords.split(",").length < 10}<span style="color:red">{features[i].FetchMeta.keywords.split(",").length}/10</span>{:else}<span style="color:green">{features[i].FetchMeta.keywords.split(",").length}/10</span>{/if}
 							{:else}
-								<span style="color: red;">ERR</span>
+								<span style="color: red;">0/10</span>
 							{/if}
 								</td>
 						
-						<td style="width: 20%">
+						<td>
 							{#if (typeof features[i].FetchMetaOG.description != 'undefined') && features[i].FetchMetaOG.description == ""}
 							<span style="color: red">Missing og:description</span><br/>
 							{:else}
@@ -221,9 +269,9 @@ export async function load({ url }) {
 					<th colspan="{header.length}" class="{i%2==0 ? 'even' : 'odd'}">
 						<Drop>
 							<center>
-							<p>Size: {features[i].InternalSiteSize}</p>
+							<p>Size: {features[i].InternalSiteSize} Bytes</p>
 							<br/>
-							<p>Speed: {features[i].RequestSpeed}</p>
+							<p>Speed: {features[i].RequestSpeed} Nanosecond</p>
 							<br/>
 							<p>Meta description: {features[i].FetchMeta.description}</p>
 							<br/>
@@ -235,27 +283,33 @@ export async function load({ url }) {
 							<br/>
 							<p>OG Site Name: {features[i].FetchMetaOG.site_name}</p>
 							<br/>
-							<p>Import Sizes: </p><br/>
+							<!-- <p>Import Sizes: </p><br/>
 							<p>CSS: {features[i].FetchImportSizes.CSSSize}</p><br/>
 							<p>IFrame: {features[i].FetchImportSizes.IFRAMESize}</p><br/>
 							<p>Image: {features[i].FetchImportSizes.IMAGESize}</p><br/>
-							<p>JS: {features[i].FetchImportSizes.JSSize}</p><br/>
+							<p>JS: {features[i].FetchImportSizes.JSSize}</p><br/> -->
 							<div>
 								images:
-								<div style="max-height: 250px; overflow:auto; ">
+								<div style="max-height: 250px; overflow:auto;">
 								<table style="border: solid black 1px;">
-									{#each features[i].FetchAlt as img}
-										<tr>
-											<th><img src="{img[0]}" alt="{img[2]}" height="50px"/></th>
-											<th>{img[2]}</th>
-										</tr>
-									{/each}
+									{#if features[i].FetchAlt != null}
+										{#each features[i].FetchAlt as img}
+											<tr>
+												<th><img src="{img[0]}" alt="{img[2]}" height="50px"/></th>
+												<th>{img[2]}</th>
+											</tr>
+										{/each}
+									{/if}
 								</table>
 								</div>
 							</div>
 						</center>
 						</Drop>
 					</th>
+
+					{#if i == 0 && features.length > 1}
+					<tr style="background-color: lightgray;" colspan="{header.length}"><center>Other Pages</center></tr>
+					{/if}
 					
 					{/each} 
 					
@@ -296,6 +350,41 @@ export async function load({ url }) {
 	 
 
 <style>
+
+@media only screen and (max-width: 800px) {
+
+	#focus-display{
+		display: none;
+	}
+	#favicon-display{
+		display: none;
+	}
+}
+
+#info-panel {
+	width: 85%;
+	margin-top: 20px;
+	position:relative;
+	text-align: left;
+	justify-content: left;
+}
+
+#favicon-display{
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+#focus-display {
+	margin-right: 10%
+}
+#info-table{
+	margin-top: 40px; 
+	max-height: 650px;
+	overflow: auto;
+	width: 85%;
+	
+}
+
 
 .loader {
   border: 6px solid white;
@@ -368,7 +457,7 @@ button, input[type=submit] {
     
 table.timecard {
 	margin: auto;
-	width: 85%;
+	width: 100%;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px lightgray;
 }
