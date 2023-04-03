@@ -1,13 +1,10 @@
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<center>
-   <a href="http://localhost:3000/dashboard">Dash</a> 
-   <a href="http://localhost:3000/manage">Manage</a> 
-   <a href="http://localhost:3000/affiliates">Affiliate Program</a>
-</center>
+<script context="module">
+   export async function load() {
+       return {
+           status: 302,
+           redirect: "https://loyae.com"
+       };
+   }
+</script>
+
+<a href="https://loyae.com">Home</a>

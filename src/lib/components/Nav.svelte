@@ -7,7 +7,7 @@ export let title;
 
 <nav>
 	   
-    <a href="../index.html" style="text-decoration: none; color: black">
+    <a href="https://loyae.com" style="text-decoration: none; color: black">
       <div class="logo">
          <img src={logo_href} alt="logo" height="30px" width="30px" style="margin: 3px;"/>
        {title}
@@ -26,8 +26,8 @@ export let title;
        
        <!-- <div>
          <span class="user-name">John Lins</span> • <a href="/signin">Login</a>
-        </div>
-      </div> -->
+        </div>-->
+      </div> 
 </nav>
 
 

@@ -144,7 +144,7 @@ export async function load({ url }) {
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	const header=["Title", "URL", "Missing Image ALT Text", "Meta Description", "Meta Keywords", "OG Meta Tags", "Supplementary & 3rd Party Meta Tags"]
+	const header=["Title", "URL", "Missing Image ALT Text", "Meta Description", "Meta Keywords", "OG Meta Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
 
 </script>
 
@@ -160,8 +160,8 @@ export async function load({ url }) {
 	<div class="center" id="info-panel">
 		
 			<div id="favicon-display">
-				{#if features.length >= 1 && features[0].Whois.favicon != ""} 
-					<img src="{features[0].Whois.favicon}" alt="favicon" height="30px"/>
+				{#if features.length >= 1 && features[0].Whois.favicon != "" && features[0].Whois.favicon.length >= 4} 
+					<img src="{features[0].Whois.favicon}" height="30px"/>
 				{/if}
 			</div>
 			<h2 id="focus-display">{focus}</h2>
@@ -224,16 +224,33 @@ export async function load({ url }) {
 					<!--run loop in here-->
 
 					<tr class="{i%2==0 ? 'even' : 'odd'}">
-						<th>{features[i].Whois.title}</th>
-						<td><a href="{`http://"`+features[i].Whois.domain}">{features[i].Whois.domain}</a></td>
-						<td style="color: red">{features[i].MissingAlts}/{#if features[i].FetchAlt != null}{features[i].FetchAlt.length}{:else}NA{/if}</td>
-						<td>{#if features[i].FetchMeta.description == ""}Missing{:else}Exists{/if}</td>
-						<td>{#if (typeof features[i].FetchMeta.keywords != 'undefined')}
+						<th><b>{features[i].Whois.title}</b></th>
+						<td><a href="{`http://`+features[i].Whois.domain}">{features[i].Whois.domain}</a></td>
+						<td>
+							Missing <b>
+								{#if features[i].MissingAlts != 0}
+									<span style="color:red">{features[i].MissingAlts}</span>
+								{:else}
+									<span style="color:green">{features[i].MissingAlts}</span>
+								{/if}
+							
+							</b> alt attributes out of
+							{#if features[i].FetchAlt != null}{features[i].FetchAlt.length}{:else}NA{/if} total images</td>
+
+						<td><b>{#if features[i].FetchMeta.description == ""}
+							<span style="color: red">Missing</span>
+							{:else}
+							<span style="color: green">Exists</span>
+							{/if}</b>
+						</td>
+						<td><b>{#if (typeof features[i].FetchMeta.keywords != 'undefined')}
 								 {#if features[i].FetchMeta.keywords.split(",").length < 10}<span style="color:red">{features[i].FetchMeta.keywords.split(",").length}/10</span>{:else}<span style="color:green">{features[i].FetchMeta.keywords.split(",").length}/10</span>{/if}
 							{:else}
 								<span style="color: red;">0/10</span>
 							{/if}
-								</td>
+							</b>
+							Keywords
+						</td>
 						
 						<td>
 							{#if (typeof features[i].FetchMetaOG.description != 'undefined') && features[i].FetchMetaOG.description == ""}
@@ -262,26 +279,61 @@ export async function load({ url }) {
 							<span style="color: green">Has og:url</span><br/>
 							{/if}
 						</td>
-						<td>
-							N/A
-						</td>
+						<!-- <td>
+							FOR NONESSENTIAL TAGS
+						</td> -->
 					</tr>
 					<th colspan="{header.length}" class="{i%2==0 ? 'even' : 'odd'}">
 						<Drop>
 							<center>
-							<p>Size: {features[i].InternalSiteSize} Bytes</p>
+							<!-- <p>Size: {features[i].InternalSiteSize} Bytes</p>-->
+							<br/> 
+							<p><b>Speed:</b> {features[i].RequestSpeed} Nanosecond</p>
 							<br/>
-							<p>Speed: {features[i].RequestSpeed} Nanosecond</p>
+							<p><b>Meta description:</b> 
+								{#if features[i].FetchMeta.description}
+								{features[i].FetchMeta.description}
+								{:else}
+								<span style="color: red">Does not exist</span>
+								{/if}
+							
+							</p>
 							<br/>
-							<p>Meta description: {features[i].FetchMeta.description}</p>
+							<p><b>Meta Keywords: </b>
+								{#if features[i].FetchMeta.keywords}
+								{features[i].FetchMeta.keywords}
+								{:else}
+								<span style="color: red">Does not exist</span>
+								{/if}
+							
+							</p>
 							<br/>
-							<p>Meta Keywords: {features[i].FetchMeta.keywords}</p>
+							<p><b>OG Meta description: </b>
+								{#if features[i].FetchMetaOG.description}
+								{features[i].FetchMetaOG.description}
+								{:else}
+								<span style="color: red">Does not exist</span>
+								{/if}
+							
+							</p>
 							<br/>
-							<p>OG Meta description: {features[i].FetchMetaOG.description}</p>
-							<br/>
-							<p>OG Meta image: </p> <img src="{features[i].FetchMetaOG.image}" height="200px" alt="og"/>
-							<br/>
-							<p>OG Site Name: {features[i].FetchMetaOG.site_name}</p>
+							<p><b>OG Meta image:</b> </p> 
+
+								{#if features[i].FetchMetaOG.image}
+									<img src="{features[i].FetchMetaOG.image}" height="200px" alt="og"/>
+								{:else}
+									<span style="color: red">Does not exist</span>
+								{/if}
+
+							<br/><br/>
+							<p><b>OG Site Name:</b>
+								{#if features[i].FetchMetaOG.site_name}
+									{features[i].FetchMetaOG.site_name}
+								{:else}
+									<span style="color: red">Does not exist</span>
+								{/if}
+
+							 </p>
 							<br/>
 							<!-- <p>Import Sizes: </p><br/>
 							<p>CSS: {features[i].FetchImportSizes.CSSSize}</p><br/>
@@ -289,16 +341,24 @@ export async function load({ url }) {
 							<p>Image: {features[i].FetchImportSizes.IMAGESize}</p><br/>
 							<p>JS: {features[i].FetchImportSizes.JSSize}</p><br/> -->
 							<div>
-								images:
+								<b>Images:</b>
 								<div style="max-height: 250px; overflow:auto;">
 								<table style="border: solid black 1px;">
 									{#if features[i].FetchAlt != null}
 										{#each features[i].FetchAlt as img}
 											<tr>
 												<th><img src="{img[0]}" alt="{img[2]}" height="50px"/></th>
-												<th>{img[2]}</th>
+													{#if img[2]}
+													<th>{img[2]}</th>
+													{:else}
+													<span style="color: red">No alt data</span>
+													{/if}
+												
+
 											</tr>
 										{/each}
+										{:else}
+										<span style="color: red">No Images</span>
 									{/if}
 								</table>
 								</div>
@@ -308,8 +368,12 @@ export async function load({ url }) {
 					</th>
 
 					{#if i == 0 && features.length > 1}
-					<tr style="background-color: lightgray;" colspan="{header.length}"><center>Other Pages</center></tr>
+					<tr>
+					<td style="background-color: lightgray;" colspan="{header.length}"><center>Other Pages</center></td>	
+					</tr>
+					
 					{/if}
+					<!--ELSE: Say, "No sitemap, generate one with loyae"-->
 					
 					{/each} 
 					
@@ -484,11 +548,15 @@ table.timecard th, table.timecard td {
 
 table.timecard td {
 	text-align: left;
+	font-size: 1.1em;
+	padding-left: 10px;
 }
 
 table.timecard tbody th {
 	text-align: left;
 	font-weight: normal;
+	font-size: 1.1em;
+	padding-left: 10px;
 }
 
 table.timecard tr.even, th.even {
