@@ -253,27 +253,27 @@ export async function load({ url }) {
 						</td>
 						
 						<td>
-							{#if (typeof features[i].FetchMetaOG.description != 'undefined') && features[i].FetchMetaOG.description == ""}
+							{#if (typeof features[i].FetchMetaOG.description == 'undefined') || features[i].FetchMetaOG.description == ""}
 							<span style="color: red">Missing og:description</span><br/>
 							{:else}
 							<span style="color: green">Has og:description</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.image != 'undefined') && features[i].FetchMetaOG.image == ""}
+							{#if (typeof features[i].FetchMetaOG.image == 'undefined') || features[i].FetchMetaOG.image == ""}
 							<span style="color: red">Missing og:image</span><br/>
 							{:else}
 							<span style="color: green">Has og:image</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.site_name != 'undefined') && features[i].FetchMetaOG.site_name == ""}
+							{#if (typeof features[i].FetchMetaOG.site_name == 'undefined') || features[i].FetchMetaOG.site_name == ""}
 							<span style="color: red">Missing og:site_name</span><br/>
 							{:else}
 							<span style="color: green">Has og:site_name</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.title != 'undefined') && features[i].FetchMetaOG.title == ""}
+							{#if (typeof features[i].FetchMetaOG.title == 'undefined') || features[i].FetchMetaOG.title == ""}
 							<span style="color: red">Missing og:title</span><br/>
 							{:else}
 							<span style="color: green">Has og:title</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.url != 'undefined') && features[i].FetchMetaOG.url == ""}
+							{#if (typeof features[i].FetchMetaOG.url == 'undefined') || features[i].FetchMetaOG.url == ""}
 							<span style="color: red">Missing og:url</span><br/>
 							{:else}
 							<span style="color: green">Has og:url</span><br/>
