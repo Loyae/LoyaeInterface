@@ -237,7 +237,7 @@ export async function load({ url }) {
 							</b> alt attributes out of
 							{#if features[i].FetchAlt != null}{features[i].FetchAlt.length}{:else}NA{/if} total images</td>
 
-						<td><b>{#if features[i].FetchMeta.description == ""}
+						<td><b>{#if features[i].FetchMeta.description == "" || !features[i].FetchMeta.description}
 							<span style="color: red">Missing</span>
 							{:else}
 							<span style="color: green">Exists</span>
