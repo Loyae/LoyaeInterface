@@ -97,8 +97,7 @@ export async function load({ url }) {
 		let MAX_DIAG = 30;
 
 		let features = [];
-		let sitemap_received
-		let another_sitemap_received
+		let sitemaps = [];
 
 		onMount(async () => {
 			console.log("INSIDE")
@@ -109,37 +108,44 @@ export async function load({ url }) {
 			
 
 			const sitemap = await fetch(APIURL +`/sitemap?url=${encodeURIComponent(focus)}`)
-			sitemap_received = await sitemap.json()
+			sitemaps[0] = await sitemap.json()
 
-
-			for(let i = 0; i < sitemap_received.Sitemap.Directs.length; i++){
-				if(features.length >= MAX_DIAG){
-					break;
-				}
-				const direct_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(sitemap_received.Sitemap.Directs[i].Loc)}`)
-				features[1+i] = await direct_stat_response.json()
+			for(let i = 0; i < ((sitemaps[0].Sitemap.Anothers != null) ? sitemaps[0].Sitemap.Anothers.length : 0); i++){
+				const another_response = await fetch(APIURL +`/sitemap?xml=${encodeURIComponent(sitemaps[0].Sitemap.Anothers[i].Loc)}`)
+				let temp = await another_response.json()
+				sitemaps.push(temp)
+				console.log(temp)
+				
 			}
 
 
-			//ALTERNATIVES ARN'T WORKING RN
-			// for(let i = 0; i < sitemap_received.Sitemap.Anothers.length; i++){
-			// 	const another_response = await fetch(APIURL +`/sitemap?xml=${encodeURIComponent(sitemap_received.Sitemap.Anothers[i].Loc)}`)
-			// 	another_sitemap_received = await another_response.json()
+		for(let s = 0; s < sitemaps.length; s++){
+			
+					for(let i = 0; i < ((sitemaps[s].Sitemap.Directs != null) ? sitemaps[s].Sitemap.Directs.length : 0); i++){
+						console.log("HERE: ", i, ": ", sitemaps[s].Sitemap.Directs.length)
+						if(features.length >= MAX_DIAG){
+							break;
+						}
+						const direct_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(sitemaps[s].Sitemap.Directs[i].Loc)}`)
+						await direct_stat_response.json()
+						.then((resp)=> {
+							features[features.length]=resp
+							console.log(resp)
+							console.log(i)
+							
+						})
+						
+						
+					}
+		}
 
-			// 	for(let j = 0; j < another_sitemap_received.Sitemap.Directs.length; j++){
-			// 		if(features.length >= MAX_DIAG){
-			// 			break;
-			// 		}
-			// 		const another_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(another_sitemap_received.Sitemap.Directs[i].Loc)}`)
-			// 		features[features.length + j] = await another_stat_response.json()
-					
-			// 	}
-			// }
+
+		
 
 		 })
 	
 
-	console.log(features[0])
+	// console.log(features[0])
 	// features[0] = {page: "▼ h", missing_alts: 5}
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
