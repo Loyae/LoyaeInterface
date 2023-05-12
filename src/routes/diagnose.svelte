@@ -440,7 +440,14 @@ export async function load({ url }) {
 						<div style="color: red" colspan="{header.length}" class="center">
 							<b>MAX # OF ROWS PER SESSION REACHED ({MAX_DIAG})</b>
 						</div>
-					{/if}
+		{/if}
+
+		<br/>
+
+		<br/>
+
+		<center><p>Want to fix these errors? Join the waitlist to fix them automatically using AI!</p></center>
+		
 
 			<br/>
 			<br/>
