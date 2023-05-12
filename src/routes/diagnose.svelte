@@ -150,7 +150,7 @@ export async function load({ url }) {
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	const header=["Title", "URL", "Missing Image ALT Text", "Meta Description", "Meta Keywords", "OG Meta Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
+	const header=["Title", "URL", "Missing Image ALT Text", "Meta Description", "OG Meta Tags", "Other Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
 
 </script>
 
@@ -185,7 +185,7 @@ export async function load({ url }) {
 			
 				<!-- <Countdown FontSize="12"/> -->
 				<br/>
-				<div>  <b>API & Wordpress Plugin Releases In </b>
+				<div>  <b>WordPress Plugin (Early Access) Releases In </b>
 				<!-- <b>{countdown_days} days : {countdown_hours} hours : {countdown_minutes} minutes : {countdown_seconds} seconds</b> -->
 				<Countdown date="july 6, 2023 01:30:00"/>
 				</div>
@@ -213,11 +213,7 @@ export async function load({ url }) {
 				<thead>
 					<tr>
 						{#each header as th}
-							{#if th === "URL"}
-								<th style="width: 10px; word-wrap: break-word;">{th}</th> <!--NOT WORKING-->
-							{:else}
 							<th>{th}</th>
-							{/if}
 						
 						{/each}
 					</tr>
@@ -230,8 +226,9 @@ export async function load({ url }) {
 					<!--run loop in here-->
 
 					<tr class="{i%2==0 ? 'even' : 'odd'}">
-						<th><b>{features[i].Whois.title}</b></th>
-						<td><a href="{`http://`+features[i].Whois.domain}">{features[i].Whois.domain}</a></td>
+						<th width="35px" style="word-wrap: break-word;"><b>{features[i].Whois.title}</b></th>
+
+						<td><div style="width: 150px;word-wrap: break-word; overflow: hidden;"><a href="{`http://`+features[i].Whois.domain}">{features[i].Whois.domain}</a></div></td>
 						<td>
 							Missing <b>
 								{#if features[i].MissingAlts != 0}
@@ -249,42 +246,89 @@ export async function load({ url }) {
 							<span style="color: green">Exists</span>
 							{/if}</b>
 						</td>
-						<td><b>{#if (typeof features[i].FetchMeta.keywords != 'undefined')}
-								 {#if features[i].FetchMeta.keywords.split(",").length < 10}<span style="color:red">{features[i].FetchMeta.keywords.split(",").length}/10</span>{:else}<span style="color:green">{features[i].FetchMeta.keywords.split(",").length}/10</span>{/if}
-							{:else}
-								<span style="color: red;">0/10</span>
-							{/if}
-							</b>
-							Keywords
-						</td>
+						
 						
 						<td>
-							{#if (typeof features[i].FetchMetaOG.description == 'undefined') || features[i].FetchMetaOG.description == ""}
+							{#if (typeof features[i].FetchMetaOG['og:description'] == 'undefined') || features[i].FetchMetaOG['og:description'] == ""}
 							<span style="color: red">Missing og:description</span><br/>
 							{:else}
 							<span style="color: green">Has og:description</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.image == 'undefined') || features[i].FetchMetaOG.image == ""}
+							
+							{#if (typeof features[i].FetchMetaOG['og:image'] == 'undefined') || features[i].FetchMetaOG['og:image'] == ""}
 							<span style="color: red">Missing og:image</span><br/>
 							{:else}
 							<span style="color: green">Has og:image</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.site_name == 'undefined') || features[i].FetchMetaOG.site_name == ""}
+
+							{#if (typeof features[i].FetchMetaOG['og:image:alt'] == 'undefined') || features[i].FetchMetaOG['og:image:alt'] == ""}
+							<span style="color: red">Missing og:image:alt</span><br/>
+							{:else}
+							<span style="color: green">Has og:image:alt</span><br/>
+							{/if}
+							
+							{#if (typeof features[i].FetchMetaOG['og:site_name'] == 'undefined') || features[i].FetchMetaOG['og:site_name'] == ""}
 							<span style="color: red">Missing og:site_name</span><br/>
 							{:else}
 							<span style="color: green">Has og:site_name</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.title == 'undefined') || features[i].FetchMetaOG.title == ""}
+							
+							{#if (typeof features[i].FetchMetaOG['og:title'] == 'undefined') || features[i].FetchMetaOG['og:title'] == ""}
 							<span style="color: red">Missing og:title</span><br/>
 							{:else}
 							<span style="color: green">Has og:title</span><br/>
 							{/if}
-							{#if (typeof features[i].FetchMetaOG.url == 'undefined') || features[i].FetchMetaOG.url == ""}
+							
+							{#if (typeof features[i].FetchMetaOG['og:url'] == 'undefined') || features[i].FetchMetaOG['og:url'] == ""}
 							<span style="color: red">Missing og:url</span><br/>
 							{:else}
 							<span style="color: green">Has og:url</span><br/>
 							{/if}
-						</td>
+							
+
+							{#if (typeof features[i].FetchMetaOG['og:keywords'] == 'undefined') || features[i].FetchMetaOG['og:keywords'] == ""}
+							<span style="color: red">Missing og:keywords</span><br/>
+							{:else}
+							<span style="color: green;">Has <b>{features[i].FetchMeta.keywords.split(",").length}</b> og:keywords</span><br/>
+							{/if}
+							 
+					   </td>
+
+					   <td>
+							{#if (typeof features[i].FetchMeta.keywords == 'undefined') || features[i].FetchMeta.keywords == ""}
+							<span style="color: red">Missing keywords</span><br/>
+							{:else}
+							<span style="color: green;">Has <b>{features[i].FetchMeta.keywords.split(",").length}</b> keywords</span><br/>
+							{/if}
+							
+							{#if (typeof features[i].FetchMeta['theme-color'] == 'undefined') || features[i].FetchMeta['theme-color'] == ""}
+							<span style="color: red">Missing theme-color</span><br/>
+							{:else}
+							<span style="color: green;">Has theme-color: <span style="color:{features[i].FetchMeta['theme-color']};">{features[i].FetchMeta['theme-color']}</span></span><br/>
+							{/if}
+
+							{#if (typeof features[i].FetchCanonical == 'undefined')}
+							<span style="color: red">Missing canonical tag</span><br/>
+							{:else}
+							<span style="color: green;">Has canonical tag</span><br/>
+							{/if}
+
+							{#if (typeof features[i].FetchMeta.viewport == 'undefined')  || features[i].FetchMeta.viewport == ""}
+							<span style="color: red">Missing viewport</span><br/>
+							{:else}
+							<span style="color: green;">Has viewport</span><br/>
+							{/if}
+
+
+							{#each ["twitter:card","twitter:title","twitter:description","twitter:image","twitter:url"] as t}
+								{#if (typeof features[i].FetchMeta[{t}] == 'undefined')  || features[i].FetchMeta[{t}] == ""}
+								<span style="color: red">Missing {t}</span><br/>
+								{:else}
+								<span style="color: green;">Has {t}</span><br/>
+								{/if}
+							{/each}
+
+					   </td>
 						<!-- <td>
 							FOR NONESSENTIAL TAGS
 						</td> -->
