@@ -359,8 +359,8 @@ export async function load({ url }) {
 							</p>
 							<br/>
 							<p><b>OG Meta description: </b>
-								{#if features[i].FetchMetaOG.description}
-								{features[i].FetchMetaOG.description}
+								{#if features[i].FetchMetaOG['og:description']}
+								{features[i].FetchMetaOG['og:description']}
 								{:else}
 								<span style="color: red">Does not exist</span>
 								{/if}
@@ -369,16 +369,16 @@ export async function load({ url }) {
 							<br/>
 							<p><b>OG Meta image:</b> </p> 
 
-								{#if features[i].FetchMetaOG.image}
-									<img src="{features[i].FetchMetaOG.image}" height="200px" alt="og"/>
+								{#if features[i].FetchMetaOG['og:image']}
+									<img src="{features[i].FetchMetaOG['og:image']}" height="200px" alt="og"/>
 								{:else}
 									<span style="color: red">Does not exist</span>
 								{/if}
 
 							<br/><br/>
 							<p><b>OG Site Name:</b>
-								{#if features[i].FetchMetaOG.site_name}
-									{features[i].FetchMetaOG.site_name}
+								{#if features[i].FetchMetaOG['og:site_name']}
+									{features[i].FetchMetaOG['og:site_name']}
 								{:else}
 									<span style="color: red">Does not exist</span>
 								{/if}
