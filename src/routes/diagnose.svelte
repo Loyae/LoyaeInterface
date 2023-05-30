@@ -94,53 +94,59 @@ export async function load({ url }) {
 			
 	// 	})
 	// }
-		let MAX_DIAG = 30;
-
+		let MAX_DIAG = 50;
+		let superficial_len = 0;
 		let features = [];
 		let sitemaps = [];
+		let done_loading = false;
 
 		onMount(async () => {
 			console.log("INSIDE")
 			const focus_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(focus)}`)
 			features[0] = await focus_stat_response.json()
 			
-		
+			superficial_len+=1;
 			
 
 			const sitemap = await fetch(APIURL +`/sitemap?url=${encodeURIComponent(focus)}`)
 			sitemaps[0] = await sitemap.json()
 
 			for(let i = 0; i < ((sitemaps[0].Sitemap.Anothers != null) ? sitemaps[0].Sitemap.Anothers.length : 0); i++){
+				if(superficial_len >= MAX_DIAG){
+					break;
+				}
 				const another_response = await fetch(APIURL +`/sitemap?xml=${encodeURIComponent(sitemaps[0].Sitemap.Anothers[i].Loc)}`)
 				let temp = await another_response.json()
+				superficial_len+=temp.Sitemap.Directs.length;
 				sitemaps.push(temp)
 				console.log(temp)
 				
 			}
 
-
-		for(let s = 0; s < sitemaps.length; s++){
 			
-					for(let i = 0; i < ((sitemaps[s].Sitemap.Directs != null) ? sitemaps[s].Sitemap.Directs.length : 0); i++){
-						console.log("HERE: ", i, ": ", sitemaps[s].Sitemap.Directs.length)
-						if(features.length >= MAX_DIAG){
-							break;
-						}
-						const direct_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(sitemaps[s].Sitemap.Directs[i].Loc)}`)
-						await direct_stat_response.json()
-						.then((resp)=> {
-							features[features.length]=resp
-							console.log(resp)
-							console.log(i)
-							
-						})
-						
-						
-					}
-		}
+				for(let s = 0; s < sitemaps.length; s++){
+					
+							for(let i = 0; i < ((sitemaps[s].Sitemap.Directs != null) ? sitemaps[s].Sitemap.Directs.length : 0); i++){
+								console.log("HERE: ", i, ": ", sitemaps[s].Sitemap.Directs.length)
+								if(features.length >= MAX_DIAG){
+									break;
+								}
+								const direct_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(sitemaps[s].Sitemap.Directs[i].Loc)}`)
+								await direct_stat_response.json()
+								.then((resp)=> {
+									features[features.length]=resp
+									console.log(resp)
+									console.log(i)
+									
+								})
+								
+								
+							}
+				}
+			
 
-
-		
+				done_loading = true;
+			
 
 		 })
 	
@@ -157,7 +163,7 @@ export async function load({ url }) {
 
 
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=1024">
 		<title>Dashboard | Loyae</title>
 		  <link rel="icon" type="image/png" href="../../assets/logos/logo.png"/>
 	</head>
@@ -206,7 +212,7 @@ export async function load({ url }) {
 			<table class="timecard">
 				
 				<caption>
-					{#if features.length == 0}
+					{#if done_loading==false}
 					<div class="loader"></div>
 					{/if}
 					Diagnostic ({features.length})</caption>
@@ -438,6 +444,7 @@ export async function load({ url }) {
 
 		{#if features.length >= MAX_DIAG}
 						<div style="color: red" colspan="{header.length}" class="center">
+							<!-- <button on:click={MAX_DIAG+=20}>More</button> -->
 							<b>MAX # OF ROWS PER SESSION REACHED ({MAX_DIAG})</b>
 						</div>
 		{/if}
