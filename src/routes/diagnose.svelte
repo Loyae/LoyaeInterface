@@ -94,6 +94,9 @@ export async function load({ url }) {
 			
 	// 	})
 	// }
+
+	
+
 		let MAX_DIAG = 50;
 		let superficial_len = 0;
 		let features = [];
@@ -104,6 +107,11 @@ export async function load({ url }) {
 			console.log("INSIDE")
 			const focus_stat_response = await fetch(APIURL +`/stats?url=${encodeURIComponent(focus)}`)
 			features[0] = await focus_stat_response.json()
+				
+			if(features[0].Err == true){
+					window.alert("Error fetching your website. Please try again.")
+				}
+			
 			
 			superficial_len+=1;
 			
@@ -149,7 +157,6 @@ export async function load({ url }) {
 			
 
 		 })
-	
 
 	// console.log(features[0])
 	// features[0] = {page: "▼ h", missing_alts: 5}
@@ -212,7 +219,7 @@ export async function load({ url }) {
 			<table class="timecard">
 				
 				<caption>
-					{#if done_loading==false}
+					{#if done_loading==false && (typeof features[0] != 'undefined' && features[0].Err == false)}
 					<div class="loader"></div>
 					{/if}
 					Diagnostic ({features.length})</caption>
@@ -238,7 +245,7 @@ export async function load({ url }) {
 						<td>
 							Missing <b>
 								{#if features[i].MissingAlts != 0}
-									<span style="color:red">{features[i].MissingAlts}</span>
+									<span style="color:red; font-size: 20pt;">{features[i].MissingAlts}</span>
 								{:else}
 									<span style="color:green">{features[i].MissingAlts}</span>
 								{/if}
@@ -247,7 +254,7 @@ export async function load({ url }) {
 							{#if features[i].FetchAlt != null}{features[i].FetchAlt.length}{:else}NA{/if} total images</td>
 
 						<td><b>{#if features[i].FetchMeta.description == "" || !features[i].FetchMeta.description}
-							<span style="color: red">Missing</span>
+							<span style="color: red; font-size: 16pt;">Missing</span>
 							{:else}
 							<span style="color: green">Exists</span>
 							{/if}</b>
@@ -271,6 +278,24 @@ export async function load({ url }) {
 							<span style="color: red">Missing og:image:alt</span><br/>
 							{:else}
 							<span style="color: green">Has og:image:alt</span><br/>
+							{/if}
+
+							{#if (typeof features[i].FetchMetaOG['og:image:width'] == 'undefined') || features[i].FetchMetaOG['og:image:width'] == ""}
+							<span style="color: red">Missing og:image:width</span><br/>
+							{:else}
+							<span style="color: green">Has og:image:width ({features[i].FetchMetaOG['og:image:width']})</span><br/>
+							{/if}
+
+							{#if (typeof features[i].FetchMetaOG['og:image:height'] == 'undefined') || features[i].FetchMetaOG['og:image:height'] == ""}
+							<span style="color: red">Missing og:image:height</span><br/>
+							{:else}
+							<span style="color: green">Has og:image:height ({features[i].FetchMetaOG['og:image:height']})</span><br/>
+							{/if}
+
+							{#if (typeof features[i].FetchMetaOG['og:image:type'] == 'undefined') || features[i].FetchMetaOG['og:image:type'] == ""}
+							<span style="color: red">Missing og:image:type</span><br/>
+							{:else}
+							<span style="color: green">Has og:image:type ({features[i].FetchMetaOG['og:image:type']})</span><br/>
 							{/if}
 							
 							{#if (typeof features[i].FetchMetaOG['og:site_name'] == 'undefined') || features[i].FetchMetaOG['og:site_name'] == ""}
@@ -326,7 +351,7 @@ export async function load({ url }) {
 							{/if}
 
 
-							{#each ["twitter:card","twitter:title","twitter:description","twitter:image","twitter:url"] as t}
+							{#each ["twitter:card","twitter:title","twitter:description","twitter:image","twitter:url", "apple-mobile-web-app-status-bar-style", "apple-mobile-web-app-title"] as t}
 								{#if (typeof features[i].FetchMeta[{t}] == 'undefined')  || features[i].FetchMeta[{t}] == ""}
 								<span style="color: red">Missing {t}</span><br/>
 								{:else}
@@ -453,7 +478,7 @@ export async function load({ url }) {
 
 		<br/>
 
-		<center><p>Want to fix these errors? Join the waitlist to fix them automatically using AI!</p></center>
+		<center><p style="font-size: 15pt;">Want to fix these errors? Join the <b>waitlist</b> to fix them automatically using AI!</p></center>
 		
 
 			<br/>
