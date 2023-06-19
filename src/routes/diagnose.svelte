@@ -125,7 +125,7 @@ export async function load({ url }) {
 				}
 				const another_response = await fetch(APIURL +`/sitemap?xml=${encodeURIComponent(sitemaps[0].Sitemap.Anothers[i].Loc)}`)
 				let temp = await another_response.json()
-				superficial_len+=temp.Sitemap.Directs.length;
+				superficial_len+= ((temp.Sitemap.Directs != null) ? temp.Sitemap.Directs.length : 0);
 				sitemaps.push(temp)
 				console.log(temp)
 				
