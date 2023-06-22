@@ -163,7 +163,7 @@ export async function load({ url }) {
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	const header=["Title", "URL", "Missing Image ALT Text", "Meta Description", "OG Meta Tags", "Other Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
+	const header=["Title", "URL", "Missing Image Alt Text", "Meta Description", "OG Meta Tags", "Other Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
 
 </script>
 
@@ -315,6 +315,12 @@ export async function load({ url }) {
 							{:else}
 							<span style="color: green">Has og:url</span><br/>
 							{/if}
+
+							{#if (typeof features[i].FetchMetaOG['og:type'] == 'undefined') || features[i].FetchMetaOG['og:type'] == ""}
+							<span style="color: red">Missing og:type</span><br/>
+							{:else}
+							<span style="color: green">Has og:type</span><br/>
+							{/if}
 							
 
 							{#if (typeof features[i].FetchMetaOG['og:keywords'] == 'undefined') || features[i].FetchMetaOG['og:keywords'] == ""}
@@ -351,7 +357,7 @@ export async function load({ url }) {
 							{/if}
 
 
-							{#each ["twitter:card","twitter:title","twitter:description","twitter:image","twitter:url", "apple-mobile-web-app-status-bar-style", "apple-mobile-web-app-title"] as t}
+							{#each ["twitter:card","twitter:title","twitter:description","twitter:image","twitter:image:alt", "twitter:url", "apple-mobile-web-app-status-bar-style", "apple-mobile-web-app-title"] as t}
 								{#if (typeof features[i].FetchMeta[{t}] == 'undefined')  || features[i].FetchMeta[{t}] == ""}
 								<span style="color: red">Missing {t}</span><br/>
 								{:else}
