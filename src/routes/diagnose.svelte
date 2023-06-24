@@ -163,7 +163,7 @@ export async function load({ url }) {
 	// features[1] = {page: " ▼b", missing_alts: 2}
 
 
-	const header=["Title", "URL", "Missing Image Alt Text", "Meta Description", "OG Meta Tags", "Other Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
+	const header=["Title", "URL", "Missing Image Alt Text", "Meta Description", "Open Graph Meta Tags", "Other Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
 
 </script>
 
@@ -245,7 +245,7 @@ export async function load({ url }) {
 						<td>
 							Missing <b>
 								{#if features[i].MissingAlts != 0}
-									<span style="color:red; font-size: 20pt;">{features[i].MissingAlts}</span>
+									<span style="color:red; font-size: 30px;">{features[i].MissingAlts}</span>
 								{:else}
 									<span style="color:green">{features[i].MissingAlts}</span>
 								{/if}
@@ -254,7 +254,7 @@ export async function load({ url }) {
 							{#if features[i].FetchAlt != null}{features[i].FetchAlt.length}{:else}NA{/if} total images</td>
 
 						<td><b>{#if features[i].FetchMeta.description == "" || !features[i].FetchMeta.description}
-							<span style="color: red; font-size: 16pt;">Missing</span>
+							<span style="color: red; font-size: 20px;">Missing</span>
 							{:else}
 							<span style="color: green">Exists</span>
 							{/if}</b>
@@ -375,7 +375,7 @@ export async function load({ url }) {
 							<center>
 							<!-- <p>Size: {features[i].InternalSiteSize} Bytes</p>-->
 							<br/> 
-							<p><b>Speed:</b> {features[i].RequestSpeed} Nanosecond</p>
+							<p><b>Speed:</b> {features[i].RequestSpeed} nanoseconds</p>
 							<br/>
 							<p><b>Meta description:</b> 
 								{#if features[i].FetchMeta.description}
@@ -482,11 +482,11 @@ export async function load({ url }) {
 
 		<br/>
 
-		<br/>
-
-		<center><p style="font-size: 15pt;">Want to fix these errors? Join the <b>waitlist</b> to fix them automatically using AI!</p></center>
+		<center><p style="font-size: 20px;">Want to fix these errors? Join the <b>waitlist</b> to fix them automatically using AI!</p></center>
 		
 
+			<br/>
+			<br/>
 			<br/>
 			<br/>
 			<center>
