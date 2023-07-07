@@ -191,14 +191,14 @@ export async function load({ url }) {
 			<div>
 				<input type="text" id="waitlist_name" name="waitlist_name" placeholder="name">
 				<input type="text" id="waitlist_email" name="waitlist_email" placeholder="email">
-				<button on:click|once={joinwaitlist} id="waitlist_button">Join Waitlist</button>
+				<button on:click|once={joinwaitlist} id="waitlist_button">Request</button>
 				
 			</div> 
 
 			
 				<!-- <Countdown FontSize="12"/> -->
 				<br/>
-				<div>  <b>WordPress Plugin (Early Access) Releases In </b>
+				<div>  <b>Request Early Access</b>
 				<!-- <b>{countdown_days} days : {countdown_hours} hours : {countdown_minutes} minutes : {countdown_seconds} seconds</b> -->
 				<Countdown date="july 6, 2023 01:30:00"/>
 				</div>
@@ -482,7 +482,7 @@ export async function load({ url }) {
 
 		<br/>
 
-		<center><p style="font-size: 20px;">Want to fix these errors? Join the <b>waitlist</b> to fix them automatically using AI!</p></center>
+		<center><p style="font-size: 20px;">Want to fix these errors? Request for <b>early access</b> to fix them automatically using AI!</p></center>
 		
 
 			<br/>
