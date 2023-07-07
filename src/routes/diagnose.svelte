@@ -198,9 +198,9 @@ export async function load({ url }) {
 			
 				<!-- <Countdown FontSize="12"/> -->
 				<br/>
-				<div>  <b>Request Early Access</b>
+				<div>  <b>Request Early Access ^</b>
 				<!-- <b>{countdown_days} days : {countdown_hours} hours : {countdown_minutes} minutes : {countdown_seconds} seconds</b> -->
-				<Countdown date="july 6, 2023 01:30:00"/>
+				<!----><Countdown date="july 6, 2023 01:30:00"/>-->
 				</div>
 	   
 			
