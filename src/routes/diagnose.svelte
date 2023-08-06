@@ -164,7 +164,7 @@ export async function load({ url }) {
 
 
 	const header=["Title", "URL", "Missing Image Alt Text", "Meta Description", "Open Graph Meta Tags", "Other Tags"/*, "Supplementary & 3rd Party Meta Tags"*/]
-
+	
 </script>
 
 
@@ -187,24 +187,15 @@ export async function load({ url }) {
 		
 
 		
-		<div>
-			<div>
-				<input type="text" id="waitlist_name" name="waitlist_name" placeholder="name">
-				<input type="text" id="waitlist_email" name="waitlist_email" placeholder="email">
-				<button on:click|once={joinwaitlist} id="waitlist_button">Request</button>
-				
-			</div> 
+		
 
-			
-				<!-- <Countdown FontSize="12"/> -->
-				<br/>
-				<div>  <b>Request Early Access ^</b>
-				<!-- <b>{countdown_days} days : {countdown_hours} hours : {countdown_minutes} minutes : {countdown_seconds} seconds</b> -->
-				<!--<Countdown date="july 6, 2023 01:30:00"/>-->
+				
+				<div>
+					<button on:click|once={() => (window.location='https://blog.loyae.com/posts/WordPress/post.html')} id="waitlist_button">WordPress Plugin ➤</button>
 				</div>
-	   
+	   			
 			
-		</div>
+		
 
 
 		<!-- <h2>
@@ -482,8 +473,40 @@ export async function load({ url }) {
 
 		<br/>
 
-		<center><p style="font-size: 20px;">Want to fix these errors? Request for <b>early access</b> to fix them automatically using AI!</p></center>
+		<center><p style="font-size: 20px;">Want to add this missing metadata into your site? Install the <b>WordPress plugin</b> to add it automatically using AI!</p><br/>
 		
+			<div>
+				<button on:click|once={() => (window.location='https://blog.loyae.com/posts/WordPress/post.html')} id="waitlist_button">WordPress Plugin ➤</button>
+			</div>
+		<br/>
+			Don't use WordPress? Join the <b>waitlist</b> to be notified when the plugin for other CMS platforms are released (Wix, Webflow, Squarespace, Shopify, and more...)
+		<br/><br/>
+		<div>
+			<input type="text" id="waitlist_name" name="waitlist_name" placeholder="name">
+			<input type="text" id="waitlist_email" name="waitlist_email" placeholder="email">
+			<button on:click|once={joinwaitlist} id="waitlist_button">Join</button>
+			
+		</div> 
+		<style>
+  #download {
+        background-color: lightcoral; 
+        padding: 20px; 
+        border: 0; 
+        box-shadow: 0 0 15px lightcoral; 
+        color: white; 
+        text-decoration: none; 
+        border-radius: 10px;
+    }
+    #download:hover {
+        box-shadow: 0 0 20px lightcoral; 
+    }
+		</style>
+
+		
+			<!-- <Countdown FontSize="12"/> -->
+			<br/>
+			
+		</center>
 
 			<br/>
 			<br/>
