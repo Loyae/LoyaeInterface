@@ -349,7 +349,7 @@ export async function load({ url }) {
 
 
 							{#each ["twitter:card","twitter:title","twitter:description","twitter:image","twitter:image:alt", "twitter:url", "apple-mobile-web-app-status-bar-style", "apple-mobile-web-app-title"] as t}
-								{#if (typeof features[i].FetchMeta[{t}] == 'undefined')  || features[i].FetchMeta[{t}] == ""}
+								{#if (typeof features[i].FetchMeta[t] == 'undefined')  || features[i].FetchMeta[{t}] == ""}
 								<span style="color: red">Missing {t}</span><br/>
 								{:else}
 								<span style="color: green;">Has {t}</span><br/>
