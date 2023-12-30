@@ -19,7 +19,7 @@
 </main>
 
 <footer>
-	<p><b>Loyae</b> from <b>Lins Technologies</b> © {yyyy}</p>
+	<p><b>Loyae</b> from <b><a href="https://nparam.com/">Nparam Laboratory</a></b> © {yyyy}</p>
 </footer>
 
 <style>
