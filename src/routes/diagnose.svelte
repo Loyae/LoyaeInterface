@@ -201,7 +201,7 @@ export async function load({ url }) {
 
 				
 				<div>
-					<button on:click|once={goToPluginPage} id="waitlist_button">WordPress Plugin ➤</button>
+					<button on:click|once={()=>(goToPluginPage())} id="waitlist_button">WordPress Plugin ➤</button>
 				</div>
 	   			
 			
@@ -486,7 +486,7 @@ export async function load({ url }) {
 		<center><p style="font-size: 20px;">Want to add this missing metadata into your site? Install the <b>WordPress plugin</b> to add it automatically using AI!</p><br/>
 		
 			<div>
-				<button on:click|once={goToPluginPage()} id="waitlist_button">WordPress Plugin ➤</button>
+				<button on:click|once={()=>(goToPluginPage())} id="waitlist_button">WordPress Plugin ➤</button>
 			</div>
 		<br/>
 			Don't use WordPress? Join the <b>waitlist</b> to be notified when the plugin for other CMS platforms are released (Wix, Webflow, Squarespace, Shopify, and more...)
