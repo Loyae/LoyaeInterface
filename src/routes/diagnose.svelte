@@ -53,21 +53,21 @@ export async function load({ url }) {
 		// const waitlist_button = document.getElementById("waitlist_button");
 					// waitlist_button.addEventListener("click", joinwaitlist());
 					
-					function joinwaitlist() {
-						//alert(document.getElementById('waitlist_email').value)
-						if(document.getElementById('waitlist_email').value==""){
-							alert("Please enter your name and email, then try again.")
-						}
-
-						fetch("https://api.loyae.com/waitlist?name="+document.getElementById('waitlist_name').value+"&email="+document.getElementById('waitlist_email').value+"&url="+focus, {"method":"GET"}).then(response=>{
-									document.getElementById("waitlist_button").style.backgroundColor="lightgray";
-									document.getElementById("waitlist_button").innerHTML = "Joined!"
-								}).catch(err=>{
-									window.alert("Please enter your name and email, then try again.")
-								})
-							
-									
-					}
+// 					function joinwaitlist() {
+// 						//alert(document.getElementById('waitlist_email').value)
+// 						if(document.getElementById('waitlist_email').value==""){
+// 							alert("Please enter your name and email, then try again.")
+// 						}
+//
+// 						fetch("https://api.loyae.com/waitlist?name="+document.getElementById('waitlist_name').value+"&email="+document.getElementById('waitlist_email').value+"&url="+focus, {"method":"GET"}).then(response=>{
+// 									document.getElementById("waitlist_button").style.backgroundColor="lightgray";
+// 									document.getElementById("waitlist_button").innerHTML = "Joined!"
+// 								}).catch(err=>{
+// 									window.alert("Please enter your name and email, then try again.")
+// 								})
+//
+//
+// 					}
 
 
 
@@ -204,7 +204,7 @@ export async function load({ url }) {
 					<button on:click|once={()=>(goToPluginPage())} id="waitlist_button">WordPress Plugin ➤</button>
 				</div>
 	   			
-			
+		<br/><br/>
 		
 
 
@@ -212,7 +212,12 @@ export async function load({ url }) {
 			Wordpress Plugin Comming Soon
 		</h2> -->
 	</div>
-		
+	<br/>
+		<div style="border: 1px solid lightcoral; padding: 10px; background-color: yellow">
+		<b>THIS IS JUST A DIAGNOSTIC!</b> It tells you what meta tags you are missing.<br/>
+		To optimize each page for just a few cents each (one-time fee), install the <a href="https://wordpress.org/plugins/loyae/">WordPress plugin</a>. <br/> It's a ridiculously cheap optimization that'll boost your traffic and click-through rate forever. <br/> Calculate how much it will cost you by using the <a href="https://loyae.com#calc"><b>price calculator.</b></a><br/>
+		Questions? Email contact@loyae.com.
+		</div>
 		
 							
 
@@ -488,15 +493,19 @@ export async function load({ url }) {
 			<div>
 				<button on:click|once={()=>(goToPluginPage())} id="waitlist_button">WordPress Plugin ➤</button>
 			</div>
+
 		<br/>
-			Don't use WordPress? Join the <b>waitlist</b> to be notified when the plugin for other CMS platforms are released (Wix, Webflow, Squarespace, Shopify, and more...)
+
+
+
+		<!--	Don't use WordPress? Join the <b>waitlist</b> to be notified when the plugin for other CMS platforms are released (Wix, Webflow, Squarespace, Shopify, and more...)
 		<br/><br/>
 		<div>
 			<input type="text" id="waitlist_name" name="waitlist_name" placeholder="name">
 			<input type="text" id="waitlist_email" name="waitlist_email" placeholder="email">
 			<button on:click|once={joinwaitlist} id="waitlist_button">Join</button>
 			
-		</div> 
+		</div> -->
 		<style>
   #download {
         background-color: lightcoral; 
@@ -518,7 +527,10 @@ export async function load({ url }) {
 			
 		</center>
 
-			<br/>
+
+
+
+
 			<br/>
 			<br/>
 			<br/>
