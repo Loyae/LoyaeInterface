@@ -213,11 +213,11 @@ export async function load({ url }) {
 		</h2> -->
 	</div>
 	<br/>
-		<div style="border: 1px solid lightcoral; padding: 10px; background-color: yellow">
+		<!--<div style="border: 1px solid lightcoral; padding: 10px; background-color: yellow">
 		<b>THIS IS JUST A DIAGNOSTIC!</b> It tells you what meta tags you are missing.<br/>
 		To optimize each page for just a few cents each (one-time fee), install the <a href="https://wordpress.org/plugins/loyae/">WordPress plugin</a>. <br/> It's a ridiculously cheap optimization that'll boost your traffic and click-through rate forever. <br/> Calculate how much it will cost you by using the <a href="https://loyae.com#calc"><b>price calculator.</b></a><br/>
 		Questions? Email contact@loyae.com.
-		</div>
+		</div>-->
 		
 							
 
